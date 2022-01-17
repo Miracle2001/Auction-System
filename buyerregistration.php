@@ -1,3 +1,52 @@
+
+<?php
+  include 'config.php';
+  $msg ="";
+
+  if(isset($_POST['submit'])){
+
+    $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
+    $student_id = mysqli_real_escape_string($conn, $_POST['studentid']);
+    $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
+    $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+    $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
+    $street_address = mysqli_real_escape_string($conn, $_POST['streetaddress']);
+    $county = mysqli_real_escape_string($conn, $_POST['county']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
+    $eircode = mysqli_real_escape_string($conn, $_POST['eircode']);
+    $code = mysqli_real_escape_string($conn, md5(rand()));
+
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE emailaddress='{$email_address}'")) > 0) {
+
+        $msg = "<div class='alert alert-danger'>{$email_address} - This email address has been already exists.</div>";
+    } else {
+        if ($password === $repeat_password) {
+            $sql = "INSERT INTO users (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
+            $result = mysqli_query($conn, $sql);
+
+            if ($result) {
+                 $msg = "<div class='alert alert-info'>We have sent a verification link to your email address.</div>";
+            } else {
+                $msg = "<div class='alert alert-danger'>Something went wrong.</div>";
+
+            }
+
+        } else {
+            $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match</div>";
+        }
+    }
+       
+
+    
+      
+
+  }
+
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -50,73 +99,70 @@
                 <h3><a href="sellerregistration.html">Seller</a></h3>
             </div>
             <h4>Register as a Buyer</h4>
-            <form class="row g-3">
+            <?php echo $msg; ?>
+            <form action="" method="post" class="row g-3">
                 <div class="col-md-6">
-                    <label for="inputfname" class="form-label"></label>
-                    <input type="firstname" class="form-control" id="inputfname" placeholder="First Name">
+                    <label for="firstname" class="form-label"></label>
+                    <input type="firstname" class="form-control" name="firstname" id="firstname" placeholder="First Name">
                 </div>
                 <div class="col-md-6">
-                    <label for="inputlname" class="form-label"></label>
-                    <input type="lastname" class="form-control" id="inputlname" placeholder="Last Name">
-                </div>
-
-                <div class="col-md-6">
-                    <label for="inputstudentid" class="form-label"></label>
-                    <input type="studentid" class="form-control" placeholder="Student ID" id="inputstudentid">
+                    <label for="lastname" class="form-label"></label>
+                    <input type="lastname" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
                 </div>
 
                 <div class="col-md-6">
-                    <label for="phoneno" class="form-label"></label>
-                    <input type="text" class="form-control" id="phoneno" placeholder="Phone Number">
+                    <label for="studentid" class="form-label"></label>
+                    <input type="studentid" class="form-control" placeholder="Student ID" name="studentid" id="studentid">
                 </div>
 
+    
                 <div class="col-md-12">
-                    <label for="exampleInputEmail1" class="form-label"></label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Student Email Address" aria-describedby="emailHelp">
+                    <label for="emailaddress" class="form-label"></label>
+                    <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
 
 
                 <div class="col-md-6">
-                    <label for="inputPassword5" class="form-label"></label>
-                    <input type="password" id="inputPassword5" placeholder="Password" class="form-control" aria-describedby="passwordHelpBlock">
+                    <label for="password" class="form-label"></label>
+                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" aria-describedby="passwordHelpBlock">
                     <div id="passwordHelpBlock" class="form-text">
                         Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                     </div>
                 </div>
+
                 <div class="col-md-6">
-                    <label for="inputrepeatpassword" class="form-label"></label>
-                    <input type="text" class="form-control" id="inputrepeatpassword" placeholder="Repeat Password" min="10" max="13">
+                    <label for="repeat-password" class="form-label"></label>
+                    <input type="password" id="repeat-password" name="repeat-password" placeholder="Repeat Password" class="form-control" aria-describedby="passwordHelpBlock">
+                    <div id="passwordHelpBlock" class="form-text">
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </div>
                 </div>
 
-
-
+               
                 <div class="col-md-12">
-                    <label for="inputAddress" class="form-label"></label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Address Line 1">
+                    <label for="streetaddress" class="form-label"></label>
+                    <input type="text" class="form-control" name="streetaddress" id="streetaddress" placeholder="Address">
                 </div>
-                <div class="col-md-12">
-                    <label for="inputAddress2" class="form-label"></label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Address Line 2">
-                </div>
+                
                 <div class="col-md-6">
-                    <label for="inputCity" class="form-label"></label>
-                    <input type="text" class="form-control" id="inputCity" placeholder="City">
+                    <label for="county" class="form-label"></label>
+                    <input type="text" class="form-control" name="county" id="county" placeholder="County">
                 </div>
+
                 <div class="col-md-4">
-                    <label for="inputState" class="form-label"></label>
-                    <select id="inputState" class="form-select" placeholder="County">
-                        <option selected>Choose County</option>
-                        <option>...</option>
-                    </select>
+                    <label for="city" class="form-label"></label>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="City">
                 </div>
+
+                         
                 <div class="col-md-2">
-                    <label for="inputZip" class="form-label"></label>
-                    <input type="text" class="form-control" id="inputZip" placeholder="Eircode">
+                    <label for="eircode" class="form-label"></label>
+                    <input type="text" class="form-control" name="eircode" id="eircode" placeholder="Eircode">
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Register</button>
                 </div>
             </form>
         </div>

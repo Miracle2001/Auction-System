@@ -1,5 +1,16 @@
 
 <?php
+  //Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+ 
+
+
+
+
+
   include 'config.php';
   $msg ="";
 
@@ -22,7 +33,7 @@
         $msg = "<div class='alert alert-danger'>{$email_address} - This email address has been already exists.</div>";
     } else {
         if ($password === $repeat_password) {
-            $sql = "INSERT INTO users (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
+            $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
             $result = mysqli_query($conn, $sql);
 
             if ($result) {

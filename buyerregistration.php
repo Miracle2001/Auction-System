@@ -1,62 +1,91 @@
 
 <?php
-  //Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
+
+    //Import PHPMailer classes into the global namespace
+    //These must be at the top of your script, not inside a function
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
- 
+
+    //Load Composer's autoloader
+    require 'vendor/autoload.php';
 
 
+    include 'config.php';
+    $msg ="";
 
+    if(isset($_POST['submit'])){
+        $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
+        $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
+        $student_id = mysqli_real_escape_string($conn, $_POST['studentid']);
+        $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
+        $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+        $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
+        $street_address = mysqli_real_escape_string($conn, $_POST['streetaddress']);
+        $county = mysqli_real_escape_string($conn, $_POST['county']);
+        $city = mysqli_real_escape_string($conn, $_POST['city']);
+        $eircode = mysqli_real_escape_string($conn, $_POST['eircode']);
+        $code = mysqli_real_escape_string($conn, md5(rand()));
 
-
-  include 'config.php';
-  $msg ="";
-
-  if(isset($_POST['submit'])){
-
-    $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
-    $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
-    $student_id = mysqli_real_escape_string($conn, $_POST['studentid']);
-    $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
-    $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-    $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
-    $street_address = mysqli_real_escape_string($conn, $_POST['streetaddress']);
-    $county = mysqli_real_escape_string($conn, $_POST['county']);
-    $city = mysqli_real_escape_string($conn, $_POST['city']);
-    $eircode = mysqli_real_escape_string($conn, $_POST['eircode']);
-    $code = mysqli_real_escape_string($conn, md5(rand()));
-
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE emailaddress='{$email_address}'")) > 0) {
-
-        $msg = "<div class='alert alert-danger'>{$email_address} - This email address has been already exists.</div>";
-    } else {
-        if ($password === $repeat_password) {
-            $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
-            $result = mysqli_query($conn, $sql);
-
-            if ($result) {
-                 $msg = "<div class='alert alert-info'>We have sent a verification link to your email address.</div>";
-            } else {
-                $msg = "<div class='alert alert-danger'>Something went wrong.</div>";
-
-            }
-
+        if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE emailaddress='{$email_address}'")) > 0) {
+            $msg = "<div class='alert alert-danger'>{$email_address} - This email address has been already exists.</div>";
         } else {
-            $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match</div>";
+            if ($password === $repeat_password) {
+                $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
+                $result = mysqli_query($conn, $sql);
+
+                if ($result){
+
+                    echo "<div style='display: none;'>";
+
+                    //Create an instance; passing `true` enables exceptions
+                    $mail = new PHPMailer(true);
+
+                    try {
+                        //Server settings
+                        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                        $mail->isSMTP();                                            //Send using SMTP
+                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                        $mail->Username   = 'ifechi.ugwu@gmail.com';                     //SMTP username
+                        $mail->Password   = 'Auction@1960';                               //SMTP password
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                        //Recipients
+                        $mail->setFrom('ifechi.ugwu@gmail.com', 'Mailer');
+                        $mail->addAddress($email_address);     //Add a recipient
+                                             
+
+                        //Content
+                        $mail->isHTML(true);                                  //Set email format to HTML
+                        $mail->Subject = 'No reply';
+                        $mail->Body    = 'Here is the verification link <b><a href="http://localhost/php/?verification='.$code.'">http://localhost/php/?verification='.$code.'</a></b>';
+                        
+
+                        $mail->send();
+                        echo 'Message has been sent';
+                    } catch (Exception $e) {
+                        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    }
+                    echo "</div>";
+                    $msg = "<div class='alert alert-info'>We have sent a verification link to your email address.</div>";
+
+                } else{
+                    $msg = "<div class='alert alert-danger'>Something went wrong.</div>";
+
+                }
+
+            } else {
+                $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match</div>";
+                
+            }
         }
-    }
-       
 
-    
-      
-
-  }
-
-
+    }     
 
 ?>
+
 
 <!doctype html>
 <html lang="en">

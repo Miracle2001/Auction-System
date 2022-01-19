@@ -6,7 +6,7 @@ $msg = "";
 include 'config.php';
 
 if (isset($_GET['reset'])) {
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM users WHERE code='{$_GET['reset']}'")) > 0){
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM seller WHERE code='{$_GET['reset']}'")) > 0){
         if(isset($_POST['submit'])){
             $password = mysqli_real_escape_string($conn, md5($_POST['password']));
             $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
@@ -17,7 +17,7 @@ if (isset($_GET['reset'])) {
                 $query = mysqli_query($conn, "UPDATE buyer SET password='{$password}', code='' WHERE code='{$_GET['reset']}'");
 
                 if ($query){
-                    header("Location: index.php");
+                    header("Location: sellerlogin.php");
                 }
                 
 
@@ -34,7 +34,7 @@ if (isset($_GET['reset'])) {
     }
 
 } else {
-    header("Loction: forget-password.php");
+    header("Loction: seller-forget-password.php");
 }
 ?>
 
@@ -48,7 +48,7 @@ if (isset($_GET['reset'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Buyer's Registration Page</title>
+    <title>Change Password Page</title>
 </head>
 
 <body>
@@ -86,36 +86,34 @@ if (isset($_GET['reset'])) {
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-               <h3> <a href="buyerregistration.html">Buyer</a></h3>
-            </div>
-            <div class="col-md-6">
-                <h3><a href="sellerregistration.html">Seller</a></h3>
-            </div>
+            
             <h4>Change Password</h4>
             <?php echo $msg; ?>
-            <form action="" method="post" class="row g-3">
+            <form action="" method="post" class="row g-3 needs-validation">
                
     
                
 
-
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="password" class="form-label"></label>
-                    <input type="password" id="password" name="password" placeholder="Enter New Password" class="form-control" aria-describedby="passwordHelpBlock">
+                    <input type="password" id="password" name="password" placeholder="Enter New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" aria-describedby="passwordHelpBlock" required>
                     <div id="passwordHelpBlock" class="form-text">
                         Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="repeat-password" class="form-label"></label>
-                    <input type="password" id="repeat-password" name="repeat-password" placeholder="Confirm New Password" class="form-control" aria-describedby="passwordHelpBlock">
+                    <input type="password" id="repeat-password" name="repeat-password" placeholder="Confirm New Password" class="form-control" aria-describedby="passwordHelpBlock" required>
                     
                 </div>
                              
                 <div class="col-12">
                     <button name="submit" type="submit" class="btn btn-primary">Change Password</button>
+                </div>
+
+                <div class="col-12">
+                  <h6> Back to! <a href="sellerlogin.php">Login.</a></h6>
                 </div>
             </form>
         </div>

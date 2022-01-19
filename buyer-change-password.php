@@ -1,51 +1,45 @@
+
 <?php
 
-session_start();
-if (!isset($_SESSION['SESSION_EMAIL'])) {
-    header("Location: welcome.php");
-    die();
-}
-
-include 'config.php';
 $msg = "";
 
-if (isset($_GET['verification'])) {
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM seller WHERE code='{$_GET['verification']}'")) > 0) {
-        $query = mysqli_query($conn, "UPDATE seller SET code='' WHERE code='{$_GET['verification']}'");
+include 'config.php';
 
-        if($query) {
-            $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
+if (isset($_GET['reset'])) {
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE code='{$_GET['reset']}'")) > 0){
+        if(isset($_POST['submit'])){
+            $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+            $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
 
-        }
-    } else {
-        header("Location: sellerlogin.php");
-    }
-} 
+            
 
-if(isset($_POST['submit'])){
-    $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
-    $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+            if ($password === $repeat_password){
+                $query = mysqli_query($conn, "UPDATE buyer SET password='{$password}', code='' WHERE code='{$_GET['reset']}'");
 
-    $sql = "SELECT * FROM seller WHERE emailaddress='{ $email_address}' AND password='{$password}'";
-    $result = mysqli_query($conn, $sql);
+                if ($query){
+                    header("Location: buyerlogin.php");
+                }
+                
 
-    if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
+            } else{
+                $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match.</div>";
 
-        if(empty($row['code'])) {
-            $_SESSION['SESSION_EMAIL'] = $email_address;
-            header("Location: welcome.php");
+            }
+            
 
-        } else {
-            $msg = "<div class='alert alert-info'>First verify your account and try again.</div>";
         }
 
     } else {
-        $msg = "<div class='alert alert-danger'>Email or password do not match.</div>";
+        $msg = "<div class='alet alert-danger'>Reset Link do not match. </div>";
     }
+
+} else {
+    header("Loction: buyer-forget-password.php");
 }
-
 ?>
+
+
+
 
 <!doctype html>
 <html lang="en">
@@ -54,7 +48,7 @@ if(isset($_POST['submit'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Seller's Login Page</title>
+    <title>Change Password Page</title>
 </head>
 
 <body>
@@ -92,45 +86,40 @@ if(isset($_POST['submit'])){
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-               <h3> <a href="sellerlogin.php">Buyer</a></h3>
-            </div>
-            <div class="col-md-6">
-                <h3><a href="buyerlogin.php">Seller</a></h3>
-            </div>
-            <h4>Seller Login</h4>
+            
+            <h4>Change Password</h4>
             <?php echo $msg; ?>
-            <form class="row g-3 needs-validation">
-                               
-                
-               <div class="col-md-12">
-                    <label for="emailaddress" class="form-label"></label>
-                    <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp" required>
-                   
-                </div>
+            <form action="" method="post" class="row g-3 needs-validation">
+               
+    
+               
 
                 <div class="col-md-12">
                     <label for="password" class="form-label"></label>
-                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" aria-describedby="passwordHelpBlock" required>
-                   
+                    <input type="password" id="password" name="password" placeholder="Enter New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" aria-describedby="passwordHelpBlock" required>
+                    <div id="passwordHelpBlock" class="form-text">
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="repeat-password" class="form-label"></label>
+                    <input type="password" id="repeat-password" name="repeat-password" placeholder="Confirm New Password" class="form-control" aria-describedby="passwordHelpBlock" required>
+                    
+                </div>
+                             
+                <div class="col-12">
+                    <button name="submit" type="submit" class="btn btn-primary">Change Password</button>
                 </div>
 
                 <div class="col-12">
-                  <h6>  <a href="sellerregistration.php">Forgot Password?</a></h6>
+                  <h6> Back to! <a href="buyerlogin.php">Login.</a></h6>
                 </div>
-                                            
-                <div class="col-12">
-                    <button name="submit" type="submit" class="btn btn-primary">Login</button>
-                </div>
-
-                <div class="col-12">
-                  <h6> Create Account! <a href="sellerregistration.php">Register.</a></h6>
-                </div>
-
             </form>
         </div>
-     
+      
     </div>
+
 
     <footer class="bg-dark text-white pt-5 pb-4">
 

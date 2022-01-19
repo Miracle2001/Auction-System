@@ -10,15 +10,15 @@ include 'config.php';
 $msg = "";
 
 if (isset($_GET['verification'])) {
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM seller WHERE code='{$_GET['verification']}'")) > 0) {
-        $query = mysqli_query($conn, "UPDATE seller SET code='' WHERE code='{$_GET['verification']}'");
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE code='{$_GET['verification']}'")) > 0) {
+        $query = mysqli_query($conn, "UPDATE buyer SET code='' WHERE code='{$_GET['verification']}'");
 
         if($query) {
             $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
 
         }
     } else {
-        header("Location: sellerlogin.php");
+        header("Location: buyerlogin.php");
     }
 } 
 
@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
     $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
     $password = mysqli_real_escape_string($conn, md5($_POST['password']));
 
-    $sql = "SELECT * FROM seller WHERE emailaddress='{ $email_address}' AND password='{$password}'";
+    $sql = "SELECT * FROM buyer WHERE emailaddress='{ $email_address}' AND password='{$password}'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) === 1) {
@@ -54,7 +54,7 @@ if(isset($_POST['submit'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Seller's Login Page</title>
+    <title>Buyer's Login Page</title>
 </head>
 
 <body>
@@ -98,7 +98,7 @@ if(isset($_POST['submit'])){
             <div class="col-md-6">
                 <h3><a href="buyerlogin.php">Seller</a></h3>
             </div>
-            <h4>Seller Login</h4>
+            <h4>Buyer Login</h4>
             <?php echo $msg; ?>
             <form class="row g-3 needs-validation">
                                
@@ -124,9 +124,8 @@ if(isset($_POST['submit'])){
                 </div>
 
                 <div class="col-12">
-                  <h6> Create Account! <a href="sellerregistration.php">Register.</a></h6>
+                   <h6> Create Account! <a href="buyerregistration.php">Register.</a></h6>
                 </div>
-
             </form>
         </div>
      

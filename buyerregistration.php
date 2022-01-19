@@ -31,56 +31,77 @@
 
         if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE emailaddress='{$email_address}'")) > 0) {
             $msg = "<div class='alert alert-danger'>{$email_address} - This email address has been already exists.</div>";
+        } elseif (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE studentid='{$student_id}'")) > 0) {
+            $msg = "<div class='alert alert-danger'>{$student_id} - This student id is already being used.</div>";
+            
         } else {
             if ($password === $repeat_password) {
-                $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
-                $result = mysqli_query($conn, $sql);
-
-                if ($result){
-
-                    echo "<div style='display: none;'>";
-
-                    //Create an instance; passing `true` enables exceptions
-                    $mail = new PHPMailer(true);
-
-                    try {
-                        //Server settings
-                        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                        $mail->isSMTP();                                            //Send using SMTP
-                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $mail->Username   = 'eauction13@gmail.com';                     //SMTP username
-                        $mail->Password   = 'Finalyear@2022';                               //SMTP password
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-                        //Recipients
-                        $mail->setFrom('eauction13@gmail.com', 'Mailer');
-                        $mail->addAddress($email_address);     //Add a recipient
-                                             
-
-                        //Content
-                        $mail->isHTML(true);                                  //Set email format to HTML
-                        $mail->Subject = 'No reply';
-                        $mail->Body    = 'Here is the verification link <b><a href="http://localhost/php/?verification='.$code.'">http://localhost/php/?verification='.$code.'</a></b>';
-                        
-
-                        $mail->send();
-                        echo 'Message has been sent';
-                    } catch (Exception $e) {
-                        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                
+                if(strlen($student_id) == 8) {
+    
+                    if(str_ends_with($email_address, 'studentmail.ul.ie')) {
+    
+                        if(strpos( $email_address, $student_id ) === 0) {
+    
+                            $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
+                            $result = mysqli_query($conn, $sql);
+    
+                            if ($result){
+    
+                                echo "<div style='display: none;'>";
+                
+                                //Create an instance; passing `true` enables exceptions
+                                $mail = new PHPMailer(true);
+                
+                                try {
+                                    //Server settings
+                                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                                    $mail->isSMTP();                                            //Send using SMTP
+                                    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                                    $mail->Username   = 'eauction13@gmail.com';                     //SMTP username
+                                    $mail->Password   = 'Finalyear@2022';                              //SMTP password
+                                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                                    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                
+                                    //Recipients
+                                    $mail->setFrom('eauction13@gmail.com', 'Mailer');
+                                    $mail->addAddress($email_address);     //Add a recipient
+                                                         
+                
+                                    //Content
+                                    $mail->isHTML(true);                                  //Set email format to HTML
+                                    $mail->Subject = 'No reply';
+                                    $mail->Body    = 'Here is the verification link <b><a href="http://localhost/php/?verification='.$code.'">http://localhost/php/?verification='.$code.'</a></b>';
+                                    
+                
+                                    $mail->send();
+                                    echo 'Message has been sent';
+                                } catch (Exception $e) {
+                                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                }
+                                echo "</div>";
+                                $msg = "<div class='alert alert-info'>We have sent a verification link to your email address.</div>";
+                
+                            } else{
+                                $msg = "<div class='alert alert-danger'>Something went wrong.</div>";
+                
+                            }
+    
+                        } else {
+                            $msg = "<div class='alert alert-danger'>The Student ID doesn't match the student email address</div>";
+                        }
+    
+                    } else {
+                        $msg = "<div class='alert alert-danger'>Register with your student email</div>";
                     }
-                    echo "</div>";
-                    $msg = "<div class='alert alert-info'>We have sent a verification link to your email address.</div>";
-
-                } else{
-                    $msg = "<div class='alert alert-danger'>Something went wrong.</div>";
-
+    
+                } else {
+                    $msg = "<div class='alert alert-danger'>Use the right Student ID</div>";
                 }
-
+    
             } else {
                 $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match</div>";
-                
             }
         }
 
@@ -135,39 +156,39 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-               <h3> <a href="buyerregistration.html">Buyer</a></h3>
+               <h3> <a href="buyerregistration.php">Buyer</a></h3>
             </div>
             <div class="col-md-6">
-                <h3><a href="sellerregistration.html">Seller</a></h3>
+                <h3><a href="sellerregistration.">Seller</a></h3>
             </div>
             <h4>Register as a Buyer</h4>
             <?php echo $msg; ?>
-            <form action="" method="post" class="row g-3">
+            <form action="" method="post" class="row g-3 needs-validation">
                 <div class="col-md-6">
                     <label for="firstname" class="form-label"></label>
-                    <input type="firstname" class="form-control" name="firstname" id="firstname" placeholder="First Name">
+                    <input type="firstname" class="form-control" name="firstname" id="firstname" placeholder="First Name" required>
                 </div>
                 <div class="col-md-6">
                     <label for="lastname" class="form-label"></label>
-                    <input type="lastname" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
+                    <input type="lastname" class="form-control" name="lastname" id="lastname" placeholder="Last Name" required>
                 </div>
 
                 <div class="col-md-6">
                     <label for="studentid" class="form-label"></label>
-                    <input type="studentid" class="form-control" placeholder="Student ID" name="studentid" id="studentid">
+                    <input type="studentid" class="form-control" placeholder="Student ID" name="studentid" id="studentid" required>
                 </div>
 
     
                 <div class="col-md-12">
                     <label for="emailaddress" class="form-label"></label>
-                    <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp">
+                    <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp" required>
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
 
 
                 <div class="col-md-6">
                     <label for="password" class="form-label"></label>
-                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" aria-describedby="passwordHelpBlock">
+                    <input type="password" id="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" aria-describedby="passwordHelpBlock" required>
                     <div id="passwordHelpBlock" class="form-text">
                         Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                     </div>
@@ -175,36 +196,38 @@
 
                 <div class="col-md-6">
                     <label for="repeat-password" class="form-label"></label>
-                    <input type="password" id="repeat-password" name="repeat-password" placeholder="Repeat Password" class="form-control" aria-describedby="passwordHelpBlock">
-                    <div id="passwordHelpBlock" class="form-text">
-                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                    </div>
+                    <input type="password" id="repeat-password" name="repeat-password" placeholder="Repeat Password" class="form-control" aria-describedby="passwordHelpBlock" required>
+                    
                 </div>
 
                
                 <div class="col-md-12">
                     <label for="streetaddress" class="form-label"></label>
-                    <input type="text" class="form-control" name="streetaddress" id="streetaddress" placeholder="Address">
+                    <input type="text" class="form-control" name="streetaddress" id="streetaddress" placeholder="Address" required>
                 </div>
                 
                 <div class="col-md-6">
                     <label for="county" class="form-label"></label>
-                    <input type="text" class="form-control" name="county" id="county" placeholder="County">
+                    <input type="text" class="form-control" name="county" id="county" placeholder="County" required>
                 </div>
 
                 <div class="col-md-4">
                     <label for="city" class="form-label"></label>
-                    <input type="text" class="form-control" name="city" id="city" placeholder="City">
+                    <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
                 </div>
 
                          
                 <div class="col-md-2">
                     <label for="eircode" class="form-label"></label>
-                    <input type="text" class="form-control" name="eircode" id="eircode" placeholder="Eircode">
+                    <input type="text" class="form-control" name="eircode" id="eircode" placeholder="Eircode" required>
                 </div>
 
                 <div class="col-12">
                     <button name="submit" type="submit" class="btn btn-primary">Register</button>
+                </div>
+
+                <div class="col-12">
+                   <h6> Have an account! <a href="buyerlogin.php">Login</a></h6>
                 </div>
             </form>
         </div>

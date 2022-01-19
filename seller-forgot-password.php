@@ -25,8 +25,8 @@ if(isset($_POST['submit'])){
     $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
     $code = mysqli_real_escape_string($conn, md5(rand()));
 
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE emailaddress='{$email_address}'")) > 0) {
-        $query = mysqli_query($conn, "UPDATE users SET code='{$code}' WHERE email='{$email}'");
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM seller WHERE emailaddress='{$email_address}'")) > 0) {
+        $query = mysqli_query($conn, "UPDATE seller SET code='{$code}' WHERE email='{$email_address}'");
 
         if($query) {
 
@@ -43,13 +43,13 @@ if(isset($_POST['submit'])){
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = 'ifechi.ugwu@gmail.com';                     //SMTP username
-                $mail->Password   = 'Auction@1960';                               //SMTP password
+                $mail->Username   = 'eauction13@gmail.com';                     //SMTP username
+                $mail->Password   = 'Finalyear@2022';                                 //SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                 $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom('ifechi.ugwu@gmail.com', 'Mailer');
+                $mail->setFrom('eauction13@gmail.com', 'Mailer');
                 $mail->addAddress($email_address);     //Add a recipient
                                         
 
@@ -82,7 +82,7 @@ if(isset($_POST['submit'])){
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<title>Buyer's Registration Page</title>
+<title>Forgot Password Page</title>
 </head>
 
 <body>
@@ -120,77 +120,26 @@ if(isset($_POST['submit'])){
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-           <h3> <a href="buyerregistration.html">Buyer</a></h3>
-        </div>
-        <div class="col-md-6">
-            <h3><a href="sellerregistration.html">Seller</a></h3>
-        </div>
-        <h4>Register as a Buyer</h4>
+        
+        <h4>Forgot Password</h4>
         <?php echo $msg; ?>
         <form action="" method="post" class="row g-3">
-            <div class="col-md-6">
-                <label for="firstname" class="form-label"></label>
-                <input type="firstname" class="form-control" name="firstname" id="firstname" placeholder="First Name">
-            </div>
-            <div class="col-md-6">
-                <label for="lastname" class="form-label"></label>
-                <input type="lastname" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
-            </div>
-
-            <div class="col-md-6">
-                <label for="studentid" class="form-label"></label>
-                <input type="studentid" class="form-control" placeholder="Student ID" name="studentid" id="studentid">
-            </div>
+            
 
 
             <div class="col-md-12">
                 <label for="emailaddress" class="form-label"></label>
                 <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                
             </div>
-
-
-            <div class="col-md-6">
-                <label for="password" class="form-label"></label>
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control" aria-describedby="passwordHelpBlock">
-                <div id="passwordHelpBlock" class="form-text">
-                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <label for="repeat-password" class="form-label"></label>
-                <input type="password" id="repeat-password" name="repeat-password" placeholder="Repeat Password" class="form-control" aria-describedby="passwordHelpBlock">
-                <div id="passwordHelpBlock" class="form-text">
-                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                </div>
-            </div>
-
-           
-            <div class="col-md-12">
-                <label for="streetaddress" class="form-label"></label>
-                <input type="text" class="form-control" name="streetaddress" id="streetaddress" placeholder="Address">
-            </div>
+                           
             
-            <div class="col-md-6">
-                <label for="county" class="form-label"></label>
-                <input type="text" class="form-control" name="county" id="county" placeholder="County">
-            </div>
-
-            <div class="col-md-4">
-                <label for="city" class="form-label"></label>
-                <input type="text" class="form-control" name="city" id="city" placeholder="City">
-            </div>
-
-                     
-            <div class="col-md-2">
-                <label for="eircode" class="form-label"></label>
-                <input type="text" class="form-control" name="eircode" id="eircode" placeholder="Eircode">
+            <div class="col-12">
+                <button name="submit" type="submit" class="btn btn-primary">Send Reset Link</button>
             </div>
 
             <div class="col-12">
-                <button name="submit" type="submit" class="btn btn-primary">Register</button>
+              <h6> Back to! <a href="sellerlogin.php">Login.</a></h6>
             </div>
         </form>
     </div>

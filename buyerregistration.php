@@ -7,11 +7,7 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
-    session_start();
-    if (!isset($_SESSION['SESSION_EMAIL'])) {
-        header("Location: welcome.php");
-        die();
-    }
+    
 
     //Load Composer's autoloader
     require 'vendor/autoload.php';
@@ -53,13 +49,13 @@
                         $mail->isSMTP();                                            //Send using SMTP
                         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $mail->Username   = 'ifechi.ugwu@gmail.com';                     //SMTP username
-                        $mail->Password   = 'Auction@1960';                               //SMTP password
+                        $mail->Username   = 'eauction13@gmail.com';                     //SMTP username
+                        $mail->Password   = 'Finalyear@2022';                               //SMTP password
                         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                         //Recipients
-                        $mail->setFrom('ifechi.ugwu@gmail.com', 'Mailer');
+                        $mail->setFrom('eauction13@gmail.com', 'Mailer');
                         $mail->addAddress($email_address);     //Add a recipient
                                              
 

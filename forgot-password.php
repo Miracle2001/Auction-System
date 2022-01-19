@@ -21,71 +21,57 @@ include 'config.php';
 $msg ="";
 
 if(isset($_POST['submit'])){
-    $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
-    $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
-    $student_id = mysqli_real_escape_string($conn, $_POST['studentid']);
+    
     $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
-    $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-    $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
     $code = mysqli_real_escape_string($conn, md5(rand()));
 
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM seller WHERE emailaddress='{$email_address}'")) > 0) {
-        $msg = "<div class='alert alert-danger'>{$email_address} - This email address has been already exists.</div>";
-    } else {
-        if ($password === $repeat_password) {
-            $sql = "INSERT INTO seller (firstname, lastname, studentid, emailaddress, password, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$code}')";
-            $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE emailaddress='{$email_address}'")) > 0) {
+        $query = mysqli_query($conn, "UPDATE users SET code='{$code}' WHERE email='{$email}'");
 
-            if ($result){
+        if($query) {
 
-                echo "<div style='display: none;'>";
-
-                //Create an instance; passing `true` enables exceptions
-                $mail = new PHPMailer(true);
-
-                try {
-                    //Server settings
-                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                    $mail->isSMTP();                                            //Send using SMTP
-                    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = 'ifechi.ugwu@gmail.com';                     //SMTP username
-                    $mail->Password   = 'Auction@1960';                               //SMTP password
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-                    //Recipients
-                    $mail->setFrom('ifechi.ugwu@gmail.com', 'Mailer');
-                    $mail->addAddress($email_address);     //Add a recipient
-                                         
-
-                    //Content
-                    $mail->isHTML(true);                                  //Set email format to HTML
-                    $mail->Subject = 'No reply';
-                    $mail->Body    = 'Here is the verification link <b><a href="http://localhost/php/?verification='.$code.'">http://localhost/php/?verification='.$code.'</a></b>';
-                    
-
-                    $mail->send();
-                    echo 'Message has been sent';
-                } catch (Exception $e) {
-                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                }
-                echo "</div>";
-                $msg = "<div class='alert alert-info'>We have sent a verification link to your email address.</div>";
-
-            } else{
-                $msg = "<div class='alert alert-danger'>Something went wrong.</div>";
-
-            }
-
-        } else {
-            $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match</div>";
+        
+            echo "<div style='display: none;'>";
             
+
+            //Create an instance; passing `true` enables exceptions
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'ifechi.ugwu@gmail.com';                     //SMTP username
+                $mail->Password   = 'Auction@1960';                               //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                //Recipients
+                $mail->setFrom('ifechi.ugwu@gmail.com', 'Mailer');
+                $mail->addAddress($email_address);     //Add a recipient
+                                        
+
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'No reply';
+                $mail->Body    = 'Here is the verification link <b><a href="http://localhost/php/change-password.php?reset='.$code.'">http://localhost/php/change-password.php?reset='.$code.'</a></b>';
+                
+
+                $mail->send();
+                echo 'Message has been sent';
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+            echo "</div>";
+        
         }
-    }
-
-}     
-
+      
+    } else {
+        $msg = "<div class='alert alert-danger'>$email_address - This email address do not found.</div>";
+    } 
+}
 ?>
 
 
@@ -96,7 +82,7 @@ if(isset($_POST['submit'])){
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<title>Seller's Registration Page</title>
+<title>Buyer's Registration Page</title>
 </head>
 
 <body>
@@ -179,6 +165,28 @@ if(isset($_POST['submit'])){
                 <div id="passwordHelpBlock" class="form-text">
                     Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                 </div>
+            </div>
+
+           
+            <div class="col-md-12">
+                <label for="streetaddress" class="form-label"></label>
+                <input type="text" class="form-control" name="streetaddress" id="streetaddress" placeholder="Address">
+            </div>
+            
+            <div class="col-md-6">
+                <label for="county" class="form-label"></label>
+                <input type="text" class="form-control" name="county" id="county" placeholder="County">
+            </div>
+
+            <div class="col-md-4">
+                <label for="city" class="form-label"></label>
+                <input type="text" class="form-control" name="city" id="city" placeholder="City">
+            </div>
+
+                     
+            <div class="col-md-2">
+                <label for="eircode" class="form-label"></label>
+                <input type="text" class="form-control" name="eircode" id="eircode" placeholder="Eircode">
             </div>
 
             <div class="col-12">

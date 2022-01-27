@@ -1,51 +1,7 @@
-<?php
-
+<?php 
 session_start();
-if (!isset($_SESSION['SESSION_EMAIL'])) {
-    header("Location: welcome.php");
-    die();
-}
-
-include 'config.php';
-$msg = "";
-
-if (isset($_GET['verification'])) {
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE code='{$_GET['verification']}'")) > 0) {
-        $query = mysqli_query($conn, "UPDATE buyer SET code='' WHERE code='{$_GET['verification']}'");
-
-        if($query) {
-            $msg = "<div class='alert alert-success'>Account verification has been successfully completed.</div>";
-
-        }
-    } else {
-        header("Location: buyerlogin.php");
-    }
-} 
-
-if(isset($_POST['submit'])){
-    $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
-    $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-
-    $sql = "SELECT * FROM buyer WHERE emailaddress='{ $email_address}' AND password='{$password}'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
-
-        if(empty($row['code'])) {
-            $_SESSION['SESSION_EMAIL'] = $email_address;
-            header("Location: welcome.php");
-
-        } else {
-            $msg = "<div class='alert alert-info'>First verify your account and try again.</div>";
-        }
-
-    } else {
-        $msg = "<div class='alert alert-danger'>Email or password do not match.</div>";
-    }
-}
-
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -93,14 +49,24 @@ if(isset($_POST['submit'])){
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-               <h3> <a href="sellerlogin.php">Buyer</a></h3>
+               <h3> <a href="buyerlogin.php">Buyer</a></h3>
             </div>
             <div class="col-md-6">
-                <h3><a href="buyerlogin.php">Seller</a></h3>
+                <h3><a href="sellerlogin.php">Seller</a></h3>
             </div>
             <h4>Buyer Login</h4>
-            <?php echo $msg; ?>
-            <form class="row g-3 needs-validation">
+            <?php 
+                if(isset($_SESSION['status'])) {
+                    ?>
+                    <div class="alert alert-success">
+                        <h5><?= $_SESSION['status']; ?></h5>                  
+
+                    </div>
+                    <?php
+                    unset($_SESSION['status']);
+                }
+            ?>
+            <form action="buyerlogincode.php" method="POST" class="row g-3 needs-validation">
                                
                 
                <div class="col-md-12">
@@ -116,7 +82,7 @@ if(isset($_POST['submit'])){
                 </div>
 
                 <div class="col-12">
-                  <h6>  <a href="sellerregistration.php">Forgot Password?</a></h6>
+                  <h6>  <a href="buyer-forgot-password.php">Forgot Password?</a></h6>
                 </div>
                                             
                 <div class="col-12">

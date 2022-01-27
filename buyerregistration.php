@@ -1,114 +1,6 @@
-
-<?php
-
-    //Import PHPMailer classes into the global namespace
-    //These must be at the top of your script, not inside a function
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;
-    use PHPMailer\PHPMailer\Exception;
-
-    
-
-    //Load Composer's autoloader
-    require 'vendor/autoload.php';
-
-
-    include 'config.php';
-    $msg ="";
-
-    if(isset($_POST['submit'])){
-        $first_name = mysqli_real_escape_string($conn, $_POST['firstname']);
-        $last_name = mysqli_real_escape_string($conn, $_POST['lastname']);
-        $student_id = mysqli_real_escape_string($conn, $_POST['studentid']);
-        $email_address = mysqli_real_escape_string($conn, $_POST['emailaddress']);
-        $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-        $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
-        $street_address = mysqli_real_escape_string($conn, $_POST['streetaddress']);
-        $county = mysqli_real_escape_string($conn, $_POST['county']);
-        $city = mysqli_real_escape_string($conn, $_POST['city']);
-        $eircode = mysqli_real_escape_string($conn, $_POST['eircode']);
-        $code = mysqli_real_escape_string($conn, md5(rand()));
-
-        if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE emailaddress='{$email_address}'")) > 0) {
-            $msg = "<div class='alert alert-danger'>{$email_address} - This email address has been already exists.</div>";
-        } elseif (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE studentid='{$student_id}'")) > 0) {
-            $msg = "<div class='alert alert-danger'>{$student_id} - This student id is already being used.</div>";
-            
-        } else {
-            if ($password === $repeat_password) {
-                
-                if(strlen($student_id) == 8) {
-    
-                    if(str_ends_with($email_address, 'studentmail.ul.ie')) {
-    
-                        if(strpos( $email_address, $student_id ) === 0) {
-    
-                            $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, code) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$code}')";
-                            $result = mysqli_query($conn, $sql);
-    
-                            if ($result){
-    
-                                echo "<div style='display: none;'>";
-                
-                                //Create an instance; passing `true` enables exceptions
-                                $mail = new PHPMailer(true);
-                
-                                try {
-                                    //Server settings
-                                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                                    $mail->isSMTP();                                            //Send using SMTP
-                                    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                                    $mail->Username   = 'eauction13@gmail.com';                     //SMTP username
-                                    $mail->Password   = 'Finalyear@2022';                              //SMTP password
-                                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                                    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                
-                                    //Recipients
-                                    $mail->setFrom('eauction13@gmail.com', 'Mailer');
-                                    $mail->addAddress($email_address);     //Add a recipient
-                                                         
-                
-                                    //Content
-                                    $mail->isHTML(true);                                  //Set email format to HTML
-                                    $mail->Subject = 'No reply';
-                                    $mail->Body    = 'Here is the verification link <b><a href="http://localhost/php/?verification='.$code.'">http://localhost/php/?verification='.$code.'</a></b>';
-                                    
-                
-                                    $mail->send();
-                                    echo 'Message has been sent';
-                                } catch (Exception $e) {
-                                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                                }
-                                echo "</div>";
-                                $msg = "<div class='alert alert-info'>We have sent a verification link to your email address.</div>";
-                
-                            } else{
-                                $msg = "<div class='alert alert-danger'>Something went wrong.</div>";
-                
-                            }
-    
-                        } else {
-                            $msg = "<div class='alert alert-danger'>The Student ID doesn't match the student email address</div>";
-                        }
-    
-                    } else {
-                        $msg = "<div class='alert alert-danger'>Register with your student email</div>";
-                    }
-    
-                } else {
-                    $msg = "<div class='alert alert-danger'>Use the right Student ID</div>";
-                }
-    
-            } else {
-                $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match</div>";
-            }
-        }
-
-    }     
-
+<?php 
+session_start();
 ?>
-
 
 <!doctype html>
 <html lang="en">
@@ -117,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Buyer's Registration Page</title>
+    <title>Seller's Registration Page</title>
 </head>
 
 <body>
@@ -159,11 +51,23 @@
                <h3> <a href="buyerregistration.php">Buyer</a></h3>
             </div>
             <div class="col-md-6">
-                <h3><a href="sellerregistration.">Seller</a></h3>
+                <h3><a href="sellerregistration.php">Seller</a></h3>
             </div>
             <h4>Register as a Buyer</h4>
-            <?php echo $msg; ?>
-            <form action="" method="post" class="row g-3 needs-validation">
+
+            <?php 
+            if(isset($_SESSION['status'])) {
+                ?>
+                <div class="alert alert-success">
+                    <h5><?= $_SESSION['status']; ?></h5>                  
+
+                </div>
+                <?php
+                unset($_SESSION['status']);
+                }
+            ?>
+           
+            <form action="buyerregistrationcode.php" method="post" class="row g-3 needs-validation">
                 <div class="col-md-6">
                     <label for="firstname" class="form-label"></label>
                     <input type="firstname" class="form-control" name="firstname" id="firstname" placeholder="First Name" required>

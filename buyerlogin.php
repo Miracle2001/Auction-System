@@ -66,7 +66,7 @@ session_start();
                     unset($_SESSION['status']);
                 }
             ?>
-            <form action="buyerlogincode.php" method="POST" class="row g-3 needs-validation">
+            <form action="buyerlogin-code.php" method="POST" class="row g-3 needs-validation">
                                
                 
                <div class="col-md-12">

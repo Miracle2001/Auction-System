@@ -55,10 +55,10 @@ if(isset($_POST['submit'])){
     $email_address = mysqli_real_escape_string($con, $_POST['emailaddress']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $repeat_password = mysqli_real_escape_string($con, $_POST['repeat-password']);
-    $street_address = mysqli_real_escape_string($conn, $_POST['streetaddress']);
-    $county = mysqli_real_escape_string($conn, $_POST['county']);
-    $city = mysqli_real_escape_string($conn, $_POST['city']);
-    $eircode = mysqli_real_escape_string($conn, $_POST['eircode']);
+    $street_address = mysqli_real_escape_string($con, $_POST['streetaddress']);
+    $county = mysqli_real_escape_string($con, $_POST['county']);
+    $city = mysqli_real_escape_string($con, $_POST['city']);
+    $eircode = mysqli_real_escape_string($con, $_POST['eircode']);
     $verify_token = mysqli_real_escape_string($con, md5(rand()));
 
     $password_encryption = password_hash($password, PASSWORD_BCRYPT);
@@ -89,8 +89,8 @@ if(isset($_POST['submit'])){
             if(str_ends_with($email_address, 'studentmail.ul.ie')) {
 
                 if(strpos( $email_address, $student_id ) === 0){
-                    $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$verify_token}')";
-                    $query_run = mysqli_query($con, $query);
+                    $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password_encryption}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$verify_token}')";
+                    $query_run = mysqli_query($con, $sql);
 
                     if($query_run) {
 

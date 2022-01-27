@@ -67,7 +67,7 @@ session_start();
                 }
             ?>
             
-            <form action="sellerlogincode.php" method="POST" class="row g-3 needs-validation">
+            <form action="sellerlogin-code.php" method="POST" class="row g-3 needs-validation">
                                
                 
                <div class="col-md-12">

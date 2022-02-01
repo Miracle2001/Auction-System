@@ -11,7 +11,7 @@ include('buyer-authentication.php');
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<title>Seller's Registration Page</title>
+<title>Buyer's Dashboard</title>
 </head>
 
 <body>
@@ -47,18 +47,33 @@ include('buyer-authentication.php');
     </div>
 </nav>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-           <h3>Seller's Dashboard</h3>
-        </div>
-       
-       
-    </div>
+
+
+<div class="container-fluid pt-5 p-md-4">
+    <h1>Buyer's Dashboard</h1>
     
+    <div class="row">
+        <div class="col-sm-2 bg-primary text-white">
+            <h5> View Catalogue </h5>
+            <h5> Bidding </h5>
+            <h5> Watch List </h5>
+            <h5> Auction Won </h5>
+            <h5> Auction not Won </h5>
+            <h5> Messages </h5>
+            <h5> Edit Profile </h5>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 bg-dark  text-white">.col</div>
+                <div class="col md-4 bg-primary offset-1 text-white">.col</div>
+            </div>
+        </div>
 
 
-
+        
+    </div>
+   
 </div>
 
 

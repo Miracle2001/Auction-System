@@ -1,44 +1,8 @@
 
-<?php
+<?php 
+session_start();
 
-$msg = "";
-
-include 'config.php';
-
-if (isset($_GET['reset'])) {
-    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM buyer WHERE code='{$_GET['reset']}'")) > 0){
-        if(isset($_POST['submit'])){
-            $password = mysqli_real_escape_string($conn, md5($_POST['password']));
-            $repeat_password = mysqli_real_escape_string($conn, md5($_POST['repeat-password']));
-
-            
-
-            if ($password === $repeat_password){
-                $query = mysqli_query($conn, "UPDATE buyer SET password='{$password}', code='' WHERE code='{$_GET['reset']}'");
-
-                if ($query){
-                    header("Location: buyerlogin.php");
-                }
-                
-
-            } else{
-                $msg = "<div class='alert alert-danger'>Password and Confirm Password do not match.</div>";
-
-            }
-            
-
-        }
-
-    } else {
-        $msg = "<div class='alet alert-danger'>Reset Link do not match. </div>";
-    }
-
-} else {
-    header("Loction: buyer-forget-password.php");
-}
 ?>
-
-
 
 
 <!doctype html>
@@ -88,15 +52,37 @@ if (isset($_GET['reset'])) {
         <div class="row">
             
             <h4>Change Password</h4>
-            <?php echo $msg; ?>
-            <form action="" method="post" class="row g-3 needs-validation">
-               
-    
-               
+
+            <?php 
+                if(isset($_SESSION['status'])) {
+                    ?>
+                    <div class="alert alert-success">
+                        <h5><?= $_SESSION['status']; ?></h5>           
+
+                    </div>
+                    <?php
+                    unset($_SESSION['status']);
+                }
+            ?>
+
+            
+
+            
+            
+            <form action="buyer-forgot-password-code.php" method="POST" class="row g-3 needs-validation">
+
+                <input type="hidden" name="password_token" value="<?php if(isset($_GET['token'])){echo $_GET['token'];} ?>" >
+                
+                <div class="col-md-12">
+                    <label for="emailaddress" class="form-label"></label>
+                    <input type="emailaddress" class="form-control" name="emailaddress" value="<?php if(isset($_GET['emailaddress'])){echo $_GET['emailaddress'];} ?>" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp" required>
+                    
+                </div>
+                              
 
                 <div class="col-md-12">
                     <label for="password" class="form-label"></label>
-                    <input type="password" id="password" name="password" placeholder="Enter New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" aria-describedby="passwordHelpBlock" required>
+                    <input type="password" id="password" name="new_password" placeholder="Enter New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" aria-describedby="passwordHelpBlock" required>
                     <div id="passwordHelpBlock" class="form-text">
                         Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                     </div>
@@ -109,7 +95,7 @@ if (isset($_GET['reset'])) {
                 </div>
                              
                 <div class="col-12">
-                    <button name="submit" type="submit" class="btn btn-primary">Change Password</button>
+                    <button name="password-update" type="submit" class="btn btn-primary">Change Password</button>
                 </div>
 
                 <div class="col-12">

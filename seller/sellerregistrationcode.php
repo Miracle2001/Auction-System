@@ -1,14 +1,14 @@
 <?php 
 
 session_start();
-include('dbcon.php');
+include('../dbcon.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 
 function sendemail_verify($first_name,$email_address,$verify_token){
@@ -37,7 +37,7 @@ function sendemail_verify($first_name,$email_address,$verify_token){
             <h2> You have registered with Eauction </h2>
             <h5>Verify your email address to Login with the below given link </h5>
             <br/><br/>
-            <a href='http://localhost/php/seller-verify-email.php?token=$verify_token'> Click Me </a>
+            <a href='http://localhost/php/seller/seller-verify-email.php?token=$verify_token'> Click Me </a>
         ";
         $mail->Body = $email_template;
         
@@ -49,10 +49,11 @@ function sendemail_verify($first_name,$email_address,$verify_token){
 }
 
 if(isset($_POST['submit'])){
-    $first_name = mysqli_real_escape_string($con, $_POST['firstname']);
-    $last_name = mysqli_real_escape_string($con, $_POST['lastname']);
-    $student_id = mysqli_real_escape_string($con, $_POST['studentid']);
-    $email_address = mysqli_real_escape_string($con, $_POST['emailaddress']);
+
+    $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($con, $_POST['last_name']);
+    $student_id = mysqli_real_escape_string($con, $_POST['student_id']);
+    $email_address = mysqli_real_escape_string($con, $_POST['email_address']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $repeat_password = mysqli_real_escape_string($con, $_POST['repeat-password']);
     $verify_token = mysqli_real_escape_string($con, md5(rand()));
@@ -63,10 +64,10 @@ if(isset($_POST['submit'])){
     
     
 
-    $check_email_query = "SELECT emailaddress FROM seller WHERE emailaddress='$email_address' LIMIT 1";
+    $check_email_query = "SELECT email_address FROM seller WHERE email_address='$email_address' LIMIT 1";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
-    $check_studentid_query = "SELECT studentid FROM seller WHERE studentid=' $student_id' LIMIT 1";
+    $check_studentid_query = "SELECT student_id FROM seller WHERE student_id=' $student_id' LIMIT 1";
     $check_studentid_query_run = mysqli_query($con, $check_studentid_query);
 
     if(mysqli_num_rows($check_email_query_run) > 0){
@@ -85,7 +86,7 @@ if(isset($_POST['submit'])){
             if(str_ends_with($email_address, 'studentmail.ul.ie')) {
 
                 if(strpos( $email_address, $student_id ) === 0){
-                    $query = "INSERT INTO seller (firstname, lastname, studentid, emailaddress, password, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password_encryption}', '{$verify_token}')";
+                    $query = "INSERT INTO seller (first_name, last_name, student_id, email_address, password, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password_encryption}', '{$verify_token}')";
                     $query_run = mysqli_query($con, $query);
 
                     if($query_run) {

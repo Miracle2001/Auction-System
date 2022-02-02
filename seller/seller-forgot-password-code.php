@@ -1,14 +1,14 @@
 <?php 
 
 session_start();
-include('dbcon.php');
+include('../dbcon.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 
 function send_password_reset($get_email,$token){
@@ -37,7 +37,7 @@ function send_password_reset($get_email,$token){
             <h2> Please click on the link below to reset your password.</h2>
             
             <br/><br/>
-            <a href='http://localhost/php/seller-change-password.php?token=$token&emailaddress=$get_email'> Password Reset </a>
+            <a href='http://localhost/php/seller/seller-change-password.php?token=$token&emailaddress=$get_email'> Password Reset </a>
         ";
         $mail->Body = $email_template;
         
@@ -52,12 +52,12 @@ function send_password_reset($get_email,$token){
 
 if(isset($_POST['submit'])){
     
-    $email_address = mysqli_real_escape_string($con, $_POST['emailaddress']);
+    $email_address = mysqli_real_escape_string($con, $_POST['email_address']);
     $token =  md5(rand());
 
    
     
-    $check_email_query = "SELECT emailaddress FROM seller WHERE emailaddress='$email_address' LIMIT 1";
+    $check_email_query = "SELECT email_address FROM seller WHERE email_address='$email_address' LIMIT 1";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
   
@@ -66,12 +66,12 @@ if(isset($_POST['submit'])){
 
         $row = mysqli_fetch_array($check_email_query_run);
        // $get_name = $row['sellerid'];
-        $get_email = $row['emailaddress'];
+        $get_email = $row['email_address'];
                 
        
         
 
-        $update_token = "UPDATE seller SET verify_token='$token' WHERE emailaddress='$get_email' LIMIT 1";
+        $update_token = "UPDATE seller SET verify_token='$token' WHERE email_address='$get_email' LIMIT 1";
         $update_token_run = mysqli_query($con, $update_token);
 
         if($update_token_run) {
@@ -115,7 +115,7 @@ if(isset($_POST['submit'])){
 
 if(isset($_POST['password-update'])) {
 
-    $email_address = mysqli_real_escape_string($con, $_POST['emailaddress']);
+    $email_address = mysqli_real_escape_string($con, $_POST['email_address']);
     $new_password = mysqli_real_escape_string($con, $_POST['new_password']);
     $repeat_password = mysqli_real_escape_string($con, $_POST['repeat-password']);
     $token = mysqli_real_escape_string($con, $_POST['password_token']);

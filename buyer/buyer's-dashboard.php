@@ -1,7 +1,6 @@
-
 <?php 
-session_start();
 
+include('buyer-authentication.php');
 ?>
 
 
@@ -12,7 +11,7 @@ session_start();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<title>Seller's Forgot Password Page</title>
+<title>Buyer's Dashboard</title>
 </head>
 
 <body>
@@ -48,48 +47,33 @@ session_start();
     </div>
 </nav>
 
-<div class="container">
-    <div class="row">
-       
-        <h4>Forgot Password</h4>
-        <?php 
-            if(isset($_SESSION['status'])) {
-                ?>
-                <div class="alert alert-success">
-                    <h5><?= $_SESSION['status']; ?></h5>           
-
-                </div>
-                <?php
-                unset($_SESSION['status']);
-                }
-        ?>
-        
-        
-        <form action="seller-forgot-password-code.php" method="POST" class="row g-3 needs-validation">
-           
 
 
-            <div class="col-md-12">
-                <label for="emailaddress" class="form-label"></label>
-                <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp" required>
-                
-            </div>
-
-
-           
-            <div class="col-12">
-                <button name="submit" type="submit" class="btn btn-primary">Reset Link</button>
-            </div>
-
-            <div class="col-12">
-               <h6> Have an account! <a href="sellerlogin.php">Login</a></h6>   
-            </div>
-
-            
-        </form>
-    </div>
+<div class="container-fluid pt-5 p-md-4">
+    <h1>Buyer's Dashboard</h1>
     
+    <div class="row">
+        <div class="col-sm-2 bg-primary text-white">
+            <h5> View Catalogue </h5>
+            <h5> Bidding </h5>
+            <h5> Watch List </h5>
+            <h5> Auction Won </h5>
+            <h5> Auction not Won </h5>
+            <h5> Messages </h5>
+            <h5> Edit Profile </h5>
+        </div>
 
+        <div class="container px-4">
+            <div class="row">
+                <div class="col-sm-4 bg-dark  text-white">.col</div>
+                <div class="col md-4 bg-primary text-white">.col</div>
+            </div>
+        </div>
+
+
+        
+    </div>
+   
 </div>
 
 

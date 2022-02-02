@@ -71,8 +71,8 @@ session_start();
                                
                 
                <div class="col-md-12">
-                    <label for="emailaddress" class="form-label"></label>
-                    <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp" required>
+                    <label for="email_address" class="form-label"></label>
+                    <input type="email_address" class="form-control" name="email_address" id="email_address" placeholder="Student Email Address" aria-describedby="emailHelp" required>
                    
                 </div>
 

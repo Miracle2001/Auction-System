@@ -74,8 +74,8 @@ session_start();
                 <input type="hidden" name="password_token" value="<?php if(isset($_GET['token'])){echo $_GET['token'];} ?>" >
                 
                 <div class="col-md-12">
-                    <label for="emailaddress" class="form-label"></label>
-                    <input type="emailaddress" class="form-control" name="emailaddress" value="<?php if(isset($_GET['emailaddress'])){echo $_GET['emailaddress'];} ?>" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp" required>
+                    <label for="email_address" class="form-label"></label>
+                    <input type="email_address" class="form-control" name="email_address" value="<?php if(isset($_GET['email_address'])){echo $_GET['email_address'];} ?>" id="email_address" placeholder="Student Email Address" aria-describedby="emailHelp" required>
                     
                 </div>
                               

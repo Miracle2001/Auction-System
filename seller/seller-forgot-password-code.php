@@ -21,7 +21,7 @@ function send_password_reset($get_email,$token){
         $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = "eauction13@gmail.com";                     //SMTP username
-        $mail->Password   = "Finalyear@2022";                              //SMTP password
+        $mail->Password   = "Auction@2022";                              //SMTP password
         $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -37,7 +37,7 @@ function send_password_reset($get_email,$token){
             <h2> Please click on the link below to reset your password.</h2>
             
             <br/><br/>
-            <a href='http://localhost/php/seller/seller-change-password.php?token=$token&emailaddress=$get_email'> Password Reset </a>
+            <a href='http://localhost/php/seller/seller-change-password.php?token=$token&email_address=$get_email'> Password Reset </a>
         ";
         $mail->Body = $email_template;
         

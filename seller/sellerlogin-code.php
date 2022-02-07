@@ -27,9 +27,16 @@ if(isset($_POST['submit'])){
                 if($email_pass['verify_status'] == "1"){
 
                     $_SESSION['authenticated'] = TRUE;
+
+                    $user_id = $email_pass['seller_id'];
+                    $_SESSION["id"] = $user_id;
+                    
+
                     
                     $_SESSION['status'] = "You are logged in successfully.";
-                    header("Location: seller's-dashboard.php");
+                  
+
+                    header("Location: seller-dashboard.php");
                     exit(0);
 
 

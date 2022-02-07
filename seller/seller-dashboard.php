@@ -74,11 +74,13 @@ include('seller-authentication.php');
               <div class="p-4 border bg-light">Messages</div>
             </div>
 
-            <div class="col-4">
-              <div class="p-4 border bg-light">
-                <a hrefMy Details
+            <h5>Seller_ID: <?= $_SESSION['auth_user']['email_address']; ?></h5>
 
-              </div>
+            <div class="col-4">
+              <div class="p-4 border bg-light"> Edit Profile Information </div>
+                
+
+              
             </div>
 
            

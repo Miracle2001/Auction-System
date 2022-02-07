@@ -13,7 +13,7 @@ session_start();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<title>Seller's Registration Page</title>
+<title>My Details Page</title>
 </head>
 
 <body>
@@ -53,56 +53,66 @@ session_start();
     <div class="row">
         
         <h4>My Details</h4>
+
         <?php 
             if(isset($_SESSION['status'])) {
                 ?>
                 <div class="alert alert-success">
-                    <h5><?= $_SESSION['status']; ?></h5>                  
+                    <h5><?= $_SESSION['status']; ?></h5>           
 
                 </div>
                 <?php
                 unset($_SESSION['status']);
-                }
+            }
         ?>
+
+      
         
         
-        <form action="seller's-edit-profile-code.php" method="POST" class="row g-3 needs-validation">
+        <form action="seller-edit-profile-code.php" method="POST" class="row g-3 needs-validation">
+
+            
             <div class="col-md-12">
-                <label for="firstname" class="form-label"></label>
-                <input type="firstname" class="form-control" name="firstname" id="firstname" placeholder="First Name" required>
+                <label for="first_name" class="form-label"></label>
+                <input type="first_name" class="form-control" name="first_name" value="<?php if(isset($_GET['first_name'])){echo $_GET['first_name'];} ?>" id="first_name" placeholder="First Name" required>
             </div>
             <div class="col-md-12">
-                <label for="lastname" class="form-label"></label>
-                <input type="lastname" class="form-control" name="lastname" id="lastname" placeholder="Last Name" required>
+                <label for="last_name" class="form-label"></label>
+                <input type="last_name" class="form-control" name="last_name" value="<?php if(isset($_GET['last_name'])){echo $_GET['last_name'];} ?>" id="last_name" placeholder="Last Name" required>
             </div>
 
             <div class="col-md-12">
-                <label for="studentid" class="form-label"></label>
-                <input type="studentid" class="form-control" placeholder="Student ID" name="studentid" id="studentid" required>
-            </div>
-
-
-            <div class="col-md-12">
-                <label for="emailaddress" class="form-label"></label>
-                <input type="emailaddress" class="form-control" name="emailaddress" id="emailaddress" placeholder="Student Email Address" aria-describedby="emailHelp" required>
-                
+                <label for="student_id" class="form-label"></label>
+                <input type="student_id" class="form-control" placeholder="Student ID" name="student_id" value="<?php if(isset($_GET['student_id'])){echo $_GET['student_id'];} ?>" id="student_id" required>
             </div>
 
 
             <div class="col-md-12">
-                <label for="current-password" class="form-label"></label>
-                <input type="password" id="current-password" name="current-password" placeholder="Current Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <label for="email_address" class="form-label"></label>
+                <input type="email_address" class="form-control" name="email_address" value="<?php if(isset($_GET['email_address'])){echo $_GET['email_address'];} ?>" id="email_address" placeholder="Student Email Address" aria-describedby="emailHelp" required>
                 
             </div>
 
             <div class="col-md-12">
-                <label for="new-password" class="form-label"></label>
-                <input type="password" id="new-password" name="new-password" placeholder="New Password" class="form-control" aria-describedby="passwordHelpBlock" required>
-                
+                <label for="current_password" class="form-label"></label>
+                <input type="password" id="current_password" name="current_password" placeholder="Current Password" class="form-control" aria-describedby="passwordHelpBlock" required>
+                    
             </div>
+
+            <div class="col-md-12">
+                <label for="new_password" class="form-label"></label>
+                <input type="password" id="new_password" name="new_password" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <div id="passwordHelpBlock" class="form-text">
+                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                </div>
+            </div>
+
+
+           
+    
 
             <div class="col-12">
-                <button name="updateprofile" type="submit" class="btn btn-primary">SAVE CHANGES</button>
+                <button name="updateprofile" type="submit" class="btn btn-primary">UPDATE PROFILE</button>
             </div>
 
            

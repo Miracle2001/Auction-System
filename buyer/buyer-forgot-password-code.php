@@ -1,14 +1,15 @@
 <?php 
 
 session_start();
-include('dbcon.php');
+include('../dbcon.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
+
 
 
 function send_password_reset($get_email,$token){
@@ -21,7 +22,7 @@ function send_password_reset($get_email,$token){
         $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = "eauction13@gmail.com";                     //SMTP username
-        $mail->Password   = "Finalyear@2022";                              //SMTP password
+        $mail->Password   = "Auction@2022";                              //SMTP password
         $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -37,7 +38,7 @@ function send_password_reset($get_email,$token){
             <h2> Please click on the link below to reset your password.</h2>
             
             <br/><br/>
-            <a href='http://localhost/php/buyer-change-password.php?token=$token&emailaddress=$get_email'> Password Reset </a>
+            <a href='http://localhost/php/buyer/buyer-change-password.php?token=$token&emailaddress=$get_email'> Password Reset </a>
         ";
         $mail->Body = $email_template;
         
@@ -57,7 +58,7 @@ if(isset($_POST['submit'])){
 
    
     
-    $check_email_query = "SELECT emailaddress FROM buyer WHERE emailaddress='$email_address' LIMIT 1";
+    $check_email_query = "SELECT email_address FROM buyer WHERE email_address='$email_address' LIMIT 1";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
   
@@ -66,12 +67,12 @@ if(isset($_POST['submit'])){
 
         $row = mysqli_fetch_array($check_email_query_run);
        // $get_name = $row['sellerid'];
-        $get_email = $row['emailaddress'];
+        $get_email = $row['email_address'];
                 
        
         
 
-        $update_token = "UPDATE buyer SET verify_token='$token' WHERE emailaddress='$get_email' LIMIT 1";
+        $update_token = "UPDATE buyer SET verify_token='$token' WHERE email_address='$get_email' LIMIT 1";
         $update_token_run = mysqli_query($con, $update_token);
 
         if($update_token_run) {

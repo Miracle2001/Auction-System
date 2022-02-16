@@ -1,14 +1,14 @@
 <?php 
 
 session_start();
-include('dbcon.php');
+include('../dbcon.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 
 function sendemail_verify($first_name,$email_address,$verify_token){
@@ -21,7 +21,7 @@ function sendemail_verify($first_name,$email_address,$verify_token){
         $mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = "eauction13@gmail.com";                     //SMTP username
-        $mail->Password   = "Finalyear@2022";                              //SMTP password
+        $mail->Password   = "Auction@2022";                              //SMTP password
         $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -37,7 +37,7 @@ function sendemail_verify($first_name,$email_address,$verify_token){
             <h2> You have registered with Eauction </h2>
             <h5>Verify your email address to Login with the below given link </h5>
             <br/><br/>
-            <a href='http://localhost/php/buyer-verify-email.php?token=$verify_token'> Click Me </a>
+            <a href='http://localhost/php/buyer/buyer-verify-email.php?token=$verify_token'> Click Me </a>
         ";
         $mail->Body = $email_template;
         
@@ -49,13 +49,13 @@ function sendemail_verify($first_name,$email_address,$verify_token){
 }
 
 if(isset($_POST['submit'])){
-    $first_name = mysqli_real_escape_string($con, $_POST['firstname']);
-    $last_name = mysqli_real_escape_string($con, $_POST['lastname']);
-    $student_id = mysqli_real_escape_string($con, $_POST['studentid']);
-    $email_address = mysqli_real_escape_string($con, $_POST['emailaddress']);
+    $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($con, $_POST['last_name']);
+    $student_id = mysqli_real_escape_string($con, $_POST['student_id']);
+    $email_address = mysqli_real_escape_string($con, $_POST['email_address']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
-    $repeat_password = mysqli_real_escape_string($con, $_POST['repeat-password']);
-    $street_address = mysqli_real_escape_string($con, $_POST['streetaddress']);
+    $repeat_password = mysqli_real_escape_string($con, $_POST['repeat_password']);
+    $street_address = mysqli_real_escape_string($con, $_POST['street_address']);
     $county = mysqli_real_escape_string($con, $_POST['county']);
     $city = mysqli_real_escape_string($con, $_POST['city']);
     $eircode = mysqli_real_escape_string($con, $_POST['eircode']);
@@ -67,10 +67,10 @@ if(isset($_POST['submit'])){
     
     
 
-    $check_email_query = "SELECT emailaddress FROM buyer WHERE emailaddress='$email_address' LIMIT 1";
+    $check_email_query = "SELECT email_address FROM buyer WHERE email_address='$email_address' LIMIT 1";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
-    $check_studentid_query = "SELECT studentid FROM buyer WHERE studentid=' $student_id' LIMIT 1";
+    $check_studentid_query = "SELECT student_id FROM buyer WHERE student_id=' $student_id' LIMIT 1";
     $check_studentid_query_run = mysqli_query($con, $check_studentid_query);
 
     if(mysqli_num_rows($check_email_query_run) > 0){
@@ -89,7 +89,7 @@ if(isset($_POST['submit'])){
             if(str_ends_with($email_address, 'studentmail.ul.ie')) {
 
                 if(strpos( $email_address, $student_id ) === 0){
-                    $sql = "INSERT INTO buyer (firstname, lastname, studentid, emailaddress, password, streetaddress, county, city, eircode, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password_encryption}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$verify_token}')";
+                    $sql = "INSERT INTO buyer (first_name, last_name, student_id, email_address, password, street_address, county, city, eircode, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password_encryption}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$verify_token}')";
                     $query_run = mysqli_query($con, $sql);
 
                     if($query_run) {

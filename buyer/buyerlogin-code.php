@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-include('dbcon.php');
+include('../dbcon.php');
 if(isset($_POST['submit'])){
 
     if(!empty(trim( $_POST['emailaddress'])) && !empty(trim( $_POST['password']))){
@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
         $email_address = mysqli_real_escape_string($con, $_POST['emailaddress']);
         $password = mysqli_real_escape_string($con, $_POST['password']);
 
-        $email_search = "SELECT * FROM buyer WHERE emailaddress='$email_address'";
+        $email_search = "SELECT * FROM buyer WHERE email_address='$email_address'";
         $email_search_query_run = mysqli_query($con, $email_search);
 
         $email_count = mysqli_num_rows($email_search_query_run);

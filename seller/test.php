@@ -4,6 +4,7 @@ session_start();
 
 ?>
 
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@ session_start();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<title>Seller's Listing Page</title>
+<title>Seller's Forgot Password Page</title>
 </head>
 
 <body>
@@ -49,13 +50,13 @@ session_start();
 
 <div class="container">
     <div class="row">
-        
-        <h4>Tell us about your product</h4>
+       
+        <h4>Forgot Password</h4>
         <?php 
             if(isset($_SESSION['status'])) {
                 ?>
                 <div class="alert alert-success">
-                    <h5><?= $_SESSION['status']; ?></h5>                  
+                    <h5><?= $_SESSION['status']; ?></h5>           
 
                 </div>
                 <?php
@@ -64,52 +65,25 @@ session_start();
         ?>
         
         
-        <form action="test.php" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation">
+        <form action="seller-forgot-password-code.php" method="POST" class="row g-3 needs-validation">
            
-            <div class="col-md-6">
-                <label for="product_name" class="form-label"> Product name</label>
-                <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Product Name" required>
-            </div>
+
 
             <div class="col-md-12">
-                <label for="product_description" class="form-label">Product Description</label>
-                <textarea class="form-control" placeholder="Product Description" name="product_description" id="product_description"  rows="5" required></textarea>
-            </div>
-
-
-      
-           
-            
-            <div class="col-md-12">
-                <label for="image">Select image:</label>
-                <input type="file" id="image" class="form-control" name="image" accept="image/*" value="">
+                <label for="email_address" class="form-label"></label>
+                <input type="email_address" class="form-control" name="email_address" id="email_address" placeholder="Student Email Address" aria-describedby="emailHelp" required>
                 
             </div>
 
-            <div class="col-md-12">
-                <label for="reserve_price" class="form-label">Reserve price</label>
-                <input type="number" step=0.01 class="form-control" name="reserve_price" id="reserve_price" placeholder="Reserve Price" aria-describedby="emailHelp" required>
-              
-            </div>
-
-
-            <div class="col-md-6">
-                <label for="dob" class="form-label">Start date</label>
-                <input type="date" id="dob" name="dob"  class="form-control"  required>
-                
-            </div>
 
            
-
-           
-
-                                          
+            <div class="col-12">
+                <button name="submit" type="submit" class="btn btn-primary">Reset Link</button>
+            </div>
 
             <div class="col-12">
-                <button name="submit" type="submit" class="btn btn-primary">Post</button>
+               <h6> Have an account! <a href="sellerlogin.php">Login</a></h6>   
             </div>
-
-           
 
             
         </form>

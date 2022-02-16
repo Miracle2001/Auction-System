@@ -31,6 +31,7 @@ if(isset($_POST['submit'])){
                     $user_id = $email_pass['seller_id'];
                     $_SESSION["id"] = $user_id;
                     
+                    
 
                     
                     $_SESSION['status'] = "You are logged in successfully.";

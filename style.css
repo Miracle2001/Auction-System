@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* The Navbar */
+
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* The footer */
+.py-6{
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+.text-heading{
+    color: #343a40;
+}
+.text-para{
+    color: #6c757d;
+}
+.list-unstyled{
+    padding-left: 0;
+    list-style: none;
+}
+.list-unstyled li a{
+    text-decoration: none;
+
+}
+.list-unstyled li a:hover{
+    text-decoration: underline;
+}
+.bg-transparent{
+    background-color: rgba(0,0,0,0) !important;
+}
+.border-dark{
+    border-color: #343a40 !important;
+}
+.border-end-0{
+    border-right: 0;
+}
+.py-4{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+}
+.bg-dark-gray{
+    background-color: #343a40;
+}
+.text-gray-300{
+    color: #dee2e6;
+}

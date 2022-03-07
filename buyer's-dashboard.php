@@ -8,35 +8,82 @@ include("header.php");
 
 
 
-<div class="container-fluid pt-5 p-md-4">
-    <h1>Buyer's Dashboard</h1>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12 mt-5">
+      <div class="card mt-12">
+        <div class="card-header">
+          <h4>Buyer's Dashboard</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5><a href="items-display.php">View Online Auction</a> </h4>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
     
-    <div class="container-fluid">
-        <div class="row g-2">
-            <div class="col-4">
-              <div class="p-4 border bg-light"><a href="items-display.php">View Online Auction</a></div>
-            </div>
 
-            <div class="col-4">
-              <div class="p-4 border bg-light"><a href="seller-product-list.php">Watch List</a></div>
-            </div>
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5><a href="seller-product-list.php">Watch List</a></h4>
+          </div>
+        </div>
+      </div>
 
-            <div class="col-4">
-              <div class="p-4 border bg-light">Biddings</div>
-            </div>
+      
+    </div>
 
-            <div class="col-4">
-              <div class="p-4 border bg-light">Messages</div>
-            </div>
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5>Biddings</h4>
+          </div>
+        </div>
+      </div>
 
-            
+      
+    </div>
 
-            <div class="col-4">
-              <div class="p-4 border bg-light"><a href="buyer-edit-profile.php"> Edit Profile Information</a> </div>
-                
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5>Messages</h4>
+          </div>
+        </div>
+      </div>
 
-              
-            </div>
+      
+    </div>
+
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5><a href="buyer-edit-profile.php"> Edit Profile Information</a></h4>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+
+  </div>
+ 
    
 </div>
 

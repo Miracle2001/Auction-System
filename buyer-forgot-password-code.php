@@ -38,7 +38,7 @@ function send_password_reset($get_email,$token){
             <h2> Please click on the link below to reset your password.</h2>
             
             <br/><br/>
-            <a href='http://localhost/php/buyer/buyer-change-password.php?token=$token&emailaddress=$get_email'> Password Reset </a>
+            <a href='http://localhost/php/buyer-change-password.php?token=$token&emailaddress=$get_email'> Password Reset </a>
         ";
         $mail->Body = $email_template;
         

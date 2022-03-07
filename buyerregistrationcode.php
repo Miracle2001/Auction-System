@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 
 function sendemail_verify($first_name,$email_address,$verify_token){
@@ -37,7 +37,7 @@ function sendemail_verify($first_name,$email_address,$verify_token){
             <h2> You have registered with Eauction </h2>
             <h5>Verify your email address to Login with the below given link </h5>
             <br/><br/>
-            <a href='http://localhost/php/buyer/buyer-verify-email.php?token=$verify_token'> Click Me </a>
+            <a href='http://localhost/php/buyer-verify-email.php?token=$verify_token'> Click Me </a>
         ";
         $mail->Body = $email_template;
         
@@ -78,48 +78,34 @@ if(isset($_POST['submit'])){
         $_SESSION['status'] = "Email ID already exists";
         header("Location: buyerregistration.php");
 
-    } elseif(mysqli_num_rows($check_studentid_query_run) > 0) {
-
-        $_SESSION['status'] = "Student ID already exists";
-        header("Location: buyerregistration.php");
+    
 
     } else {
-        if(strlen($student_id) == 8){
+        
 
-            if(str_ends_with($email_address, 'studentmail.ul.ie')) {
-
-                if(strpos( $email_address, $student_id ) === 0){
-                    $sql = "INSERT INTO buyer (first_name, last_name, student_id, email_address, password, street_address, county, city, eircode, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password_encryption}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$verify_token}')";
-                    $query_run = mysqli_query($con, $sql);
-
-                    if($query_run) {
-
-                        sendemail_verify("$first_name", "$email_address", "$verify_token");
-                        $_SESSION['status'] = "Registration Successful, please verify your email address.";
-                        header("Location: buyerregistration.php");
             
-                    } else {
-                        $_SESSION['status'] = "Registration Failed";
-                        header("Location: buyerregistration.php");
-                    
+
                 
-                    }
-                } else {
-                    $_SESSION['status'] = "The Student ID doesn't match the student email address.";
-                    header("Location: buyerregistration.php");
-                }
+        $sql = "INSERT INTO buyer (first_name, last_name, student_id, email_address, password, street_address, county, city, eircode, verify_token) VALUES ('{$first_name}', '{$last_name}', '{$student_id}', '{$email_address}', '{$password_encryption}', '{$street_address}', '{$county}', '{$city}', '{$eircode}', '{$verify_token}')";
+        $query_run = mysqli_query($con, $sql);
 
-            } else {
-                $_SESSION['status'] = "Register with your student email.";
-                header("Location: buyerregistration.php");
-            }
+        if($query_run) {
 
-        }else {
-
-            $_SESSION['status'] = "Register with the right Student ID.";
+            sendemail_verify("$first_name", "$email_address", "$verify_token");
+            $_SESSION['status'] = "Registration Successful, please verify your email address.";
             header("Location: buyerregistration.php");
 
+        } else {
+            $_SESSION['status'] = "Registration Failed";
+            header("Location: buyerregistration.php");
+        
+    
         }
+                 
+
+            
+
+        
     } 
     
         

@@ -12,7 +12,7 @@ include("header.php");
             <h3><a href="sellerlogin.php">Seller</a></h3>
         </div>
         <div class="col-md-6">
-            <h3> <a href="../buyer/buyerlogin.php">Buyer</a></h3>
+            <h3> <a href="buyerlogin.php">Buyer</a></h3>
         </div>
        
         <h4>Seller Login</h4>

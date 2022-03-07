@@ -1,7 +1,8 @@
 <?php 
-session_start();
+
 include('dbcon.php');
 include("header.php");
+include('authenticated.php');
 ?>
 
 <div class="container">
@@ -9,6 +10,11 @@ include("header.php");
         <?php 
         if(isset($_GET['stockid'])){
 
+
+
+
+            date_default_timezone_set('Europe/Dublin');
+            $date = date('Y-m-d H:i:s'); 
             $stock_id = $_GET['stockid'];
             $query = "select * from stock WHERE status='Active' AND stock_id='$stock_id'";
             $query_run = mysqli_query($con,$query);
@@ -18,6 +24,10 @@ include("header.php");
                 $stock_id = $row['stock_id'];
                 $_SESSION['stock_id'] = $stock_id;
 
+                
+                
+
+                
                             
 
                 
@@ -77,11 +87,11 @@ var x = setInterval(function() {
             <div class="card">
                 <div class="card-body row">
                     <div class="col-md-12 mt-3">
-                        <h5>Current Bid: </h4>
+                        <h5>Current Bid: £<?php echo $row['current_bid']; ?> </h4>
                     </div>
 
                     <div class="col-md-12 mt-3">
-                        <h5>Reserve Price: £<?php echo $row['reserve_price']; ?> </h4>
+                        <h5>Starting From: £<?php echo $row['starting_bid']; ?> </h4>
                     </div>
 
                     <div class="col-md-12 mt-3">
@@ -92,14 +102,30 @@ var x = setInterval(function() {
                         <h5>Description: <?php echo $row['stock_description']; ?> </h5>
                     </div>
 
-                    <div class="col-md-12 mt-3">
-                        <button class="btn btn-info"><a href="bid.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
-                        <button class="btn btn-info"><a href="view-seller-profile.php?sellereditid=<?php echo $edit_seller_id;?>">Watch this item</a></button>
-                    </div>
+                    <?php if(($date> $row['auction_date_end'])): ?>
 
-                    <div class="col-md-12 mt-3">
-                        <button class="btn btn-info">Chat with Seller</a></button>
-                    </div>
+                        <div class="col-md-12 mt-3">
+                            <button class="btn btn-danger">Auction Closed</a></button>
+                        </div>
+
+
+                    <?php else : ?>
+
+                        <div class="col-md-12 mt-3">
+                       
+                            <button class="btn btn-info"><a href="bid.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
+                            <button class="btn btn-info"><a href="view-seller-profile.php?sellereditid=<?php echo $edit_seller_id;?>">Watch this item</a></button>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <button class="btn btn-info">Chat with Seller</a></button>
+                        </div>
+
+
+
+                    <?php endif; ?>
+
+                                    
 
 
                 </div>

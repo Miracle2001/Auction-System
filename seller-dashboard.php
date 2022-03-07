@@ -1,59 +1,95 @@
 <?php 
-
 include('seller-authentication.php');
 include("header.php");
 ?>
 
 
 
-<div class="container-fluid pt-5 p-md-4">
 
- 
-     
-    <div class="col-12">
-      <h2>Seller's Dashboard</h2>
-    </div>
-    <div>
 
-    <div class="container-fluid">
-        <div class="row g-2">
-            <div class="col-4">
-              <div class="p-4 border bg-light"><a href="category.php">Post Listing</a></div>
-            </div>
 
-            <div class="col-4">
-              <div class="p-4 border bg-light"><a href="seller-product-list.php">Product List </a></div>
-            </div>
+<div class="container">
+  <div class="row">
 
-            <div class="col-4">
-              <div class="p-4 border bg-light">Selling/Sold</div>
-            </div>
-
-            <div class="col-4">
-              <div class="p-4 border bg-light">Messages</div>
-            </div>
-
-            
-
-            <div class="col-4">
-              <div class="p-4 border bg-light"><a href="seller-edit-profile.php"> Edit Profile Information</a> </div>
-                
-
-              
-            </div>
-
-           
-        
-        
-                   
-
+    <div class="col-md-12 mt-5">
+      <div class="card mt-12">
+        <div class="card-header">
+          <h4>Seller's Dashboard</h4>
         </div>
+      </div>
     </div>
-   
+
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5><a href="category.php">Post Listing</a></h4>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    
+
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5><a href="seller-product-list.php">Product List </a></h4>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5>Selling/Sold</h4>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5>Messages</h4>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div class ="col-md-4 mt-3">
+      <div class="card">
+        <div class="card-body row">
+          <div class="col-md-12 mt-3">
+            <h5><a href="seller-edit-profile.php"> Edit Profile Information</a></h4>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+
   </div>
+ 
+   
 </div>
 
 <?php 
 include("footer.php");
 ?>
+   
+
 

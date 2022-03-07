@@ -5,6 +5,19 @@ include("header.php");
 ?>
 
 
+<?php
+
+if(isset($_POST['submit'])){
+
+    if(!isset($_SESSION['authenticated'])){
+
+        echo "Plese login or register";
+    }
+}
+
+
+?>
+
 
 <div class="container">
     <div class="row">
@@ -68,25 +81,52 @@ include("header.php");
             <div class="card">
                 <div class="card-body row">
                     <?php 
+
+                        date_default_timezone_set('Europe/Dublin');
+                        $date = date('Y-m-d H:i:s'); 
                         
                         if(isset($_GET['category'])) {
 
                             $categorychecked =[];
                             $categorychecked = $_GET['category'];
+                            date_default_timezone_set('Europe/Dublin');
+                            $date = date('Y-m-d H:i:s');    
                             foreach($categorychecked as $rowcategory){
 
                                 //echo $rowcategory;
                                 $products = "SELECT * FROM stock WHERE category_id IN ($rowcategory)";
                                 $product_run = mysqli_query($con, $products);
                                 if(mysqli_num_rows($product_run) > 0){
+
+
     
                                     foreach($product_run as $proditems):
+
+                                        
                                         ?> 
                                             <div class="col-md-12 mt-3">
                                                 <div class="border p-2">
+                                                    <?php echo '<img src="data:image;base64,'.base64_encode($proditems['stock_image']).'" alt="Image" style="width: 110px; height: 110px;">'?><br>
                                                     <h6><?= $proditems['stock_name']; ?></h6>
                                                     <h6>Description: <?= $proditems['stock_description']; ?></h5>
-                                                    <h6>End Date: <?= $proditems['auction_date_end']; ?></h6>
+
+                                                    
+
+                                                    <?php if(!($date> $proditems['auction_date_end'])): ?>
+
+                                                        <h6>End Date: <?= $proditems['auction_date_end']; ?></h6>
+
+
+                                                    <?php else : ?>
+
+                                                        <h6>End Date: Expired</h6>
+                                                        <h6>Started on: <?= $proditems['auction_start_date']; ?></h6>
+
+
+
+                                                    <?php endif; ?>
+                                                    
+                                                    
 
                                                     <button class="btn btn-info"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
                                     
@@ -121,11 +161,26 @@ include("header.php");
                                     ?> 
                                         <div class="col-md-12 mt-3">
                                             <div class="border p-2">
+                                                <?php echo '<img src="data:image;base64,'.base64_encode($proditems['stock_image']).'" alt="Image" style="width: 110px; height: 110px;">'?> <br>
                                                 <h5><?= $proditems['stock_name']; ?></h6>
                                                 <h6>Description: <?= $proditems['stock_description']; ?></h5>
-                                                <h6>End Date: <?= $proditems['auction_date_end']; ?></h6>
+                                                <?php if(!($date> $proditems['auction_date_end'])): ?>
 
-                                                <button class="btn btn-info"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
+                                                 <h6>End Date: <?= $proditems['auction_date_end']; ?></h6>
+
+
+                                                <?php else : ?>
+
+                                                    <h6>End Date: Expired</h6>
+                                                    <h6>Started on: <?= $proditems['auction_start_date']; ?></h6>
+
+
+
+                                                <?php endif; ?>
+
+                                                
+
+                                                <button name="submit" type="submit" class="btn btn-info"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
                                 
                                  
                                                 <button name="watch_list" type="submit" class="btn btn-primary">Watch this product</button>

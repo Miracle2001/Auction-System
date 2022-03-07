@@ -17,7 +17,7 @@ include("header.php");
             <h3><a href="sellerregistration.php">Seller</a></h3>
         </div>
         <div class="col-md-6">
-           <h3> <a href="../buyer/buyerregistration.php">Buyer</a></h3>
+           <h3> <a href="buyerregistration.php">Buyer</a></h3>
         </div>
         
         <h4>Register as a Seller</h4>

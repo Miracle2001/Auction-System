@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 
 function sendemail_verify($first_name,$email_address,$verify_token){
@@ -37,7 +37,7 @@ function sendemail_verify($first_name,$email_address,$verify_token){
             <h2> You have registered with Eauction </h2>
             <h5>Verify your email address to Login with the below given link </h5>
             <br/><br/>
-            <a href='http://localhost/php/seller/seller-verify-email.php?token=$verify_token'> Click Me </a>
+            <a href='http://localhost/php/seller-verify-email.php?token=$verify_token'> Click Me </a>
         ";
         $mail->Body = $email_template;
         

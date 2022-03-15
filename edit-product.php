@@ -12,9 +12,9 @@ include("header.php");
     <div class="row">
 
         <div class="col-md-12 mt-5">
-            <div class="card mt-12">
-                <div class="card-header">
-                    <h4>Edit Product</h4>
+            <div class="card mt-12" style="background-color:#6E806E;">
+                <div class="card-header text-center">
+                    <h3 class="text-white">Edit Product Information</h3>
                 </div>
             </div>
         </div>
@@ -55,41 +55,41 @@ include("header.php");
 
                         ?>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Product Name</label>
                             <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['stock_name'];?>" id="first_name"  readonly>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Product Image</label>
                             <?php  echo '<img src="data:image;base64,'.base64_encode($row['stock_image']).'" alt="Image" style="width: 100%; height: 280px;">'?>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Product Description</label>
                             <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['stock_description'];?>" id="first_name"  readonly>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Start Date</label>
                             <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['auction_start_date'];?>" id="first_name"  readonly>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">End Date</label>
                             <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['auction_date_end'];?>" id="first_name"  readonly>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Starting Bid</label>
                             <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['starting_bid'];?>" id="first_name"  readonly>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Reserve Bid</label>
                             <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['reserve_price'];?>" id="first_name"  readonly>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Current Bid</label>
                             <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['current_bid'];?>" id="first_name"  readonly>
                         </div>
@@ -105,7 +105,7 @@ include("header.php");
 
                         
 
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-12 mt-2">
                             <select name="status" id="status" class="form-control">
                                 <option value=''>Select Status</option>
                                 <?php
@@ -125,8 +125,8 @@ include("header.php");
                             </select>
                         </div>
 
-                        <div class="col-12">
-                            <button name="updatestockprofile" type="submit" class="btn btn-primary">Update Product Information</button>
+                        <div class="col-md-12 mt-2">
+                            <button name="updatestockprofile" type="submit" style="background-color:#6E806E;" class="btn text-white">Update Product Information</button>
                         </div>
 
 

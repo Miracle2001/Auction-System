@@ -7,9 +7,9 @@ include("header.php");
 <div class="container">
     <div class="row">
         <div class="col-md-12 mt-5">
-            <div class="card mt-12">
-                <div class="card-header">
-                    <h4>View Buyer's</h4>
+            <div class="card mt-12" style="background-color:#6E806E;">
+                <div class="card-header text-center">
+                    <h3 class="text-white">View Buyer's Information</h3>
                 </div>
             </div>
         </div>
@@ -30,19 +30,19 @@ include("header.php");
         <div class ="col-md-12 mt-3">
             <div class="card">
                 <div class="card-body row"> 
-                <table class="table">
+                <table class="table mt-5">
                         <thead>
                             <tr>
                                 
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Student ID</th>
-                                <th scope="col">Email Address</th>
-                                <th scope="col">Street Address</th>
-                                <th scope="col">County</th>
-                                <th scope="col">City</th>
-                                <th scope="col">Eircode</th>
-                                <th scope="col">Action</th>
+                                <th scope="col" style="text-align:center">First Name</th>
+                                <th scope="col" style="text-align:center">Last Name</th>
+                                <th scope="col" style="text-align:center">Student ID</th>
+                                <th scope="col" style="text-align:center">Email Address</th>
+                                <th scope="col" style="text-align:center">Street Address</th>
+                                <th scope="col" style="text-align:center">County</th>
+                                <th scope="col" style="text-align:center">City</th>
+                                <th scope="col" style="text-align:center">Eircode</th>
+                                <th scope="col" style="text-align:center">Action</th>
                                 
                                 
                             </tr>
@@ -69,19 +69,24 @@ include("header.php");
 
                                     ?>
                                     <tr>
-                                        <td> <?php  echo $row['first_name']?> </td>
-                                        <td> <?php  echo $row['last_name']?> </td>
-                                        <td> <?php  echo $row['student_id']?> </td>
-                                        <td> <?php  echo $row['email_address']?> </td>
-                                        <td> <?php  echo $row['street_address']?> </td>
-                                        <td> <?php  echo $row['county']?> </td>
-                                        <td> <?php  echo $row['city']?> </td>
-                                        <td> <?php  echo $row['eircode']?> </td>
+                                        <td><h6> <?php  echo $row['first_name']?></h6> </td>
+                                        <td><h6> <?php  echo $row['last_name']?></h6> </td>
+                                        <td><h6> <?php  echo $row['student_id']?></h6> </td>
+                                        <td><h6> <?php  echo $row['email_address']?></h6> </td>
+                                        <td><h6> <?php  echo $row['street_address']?></h6> </td>
+                                        <td><h6> <?php  echo $row['county']?></h6> </td>
+                                        <td><h6> <?php  echo $row['city']?></h6> </td>
+                                        <td><h6> <?php  echo $row['eircode']?></h6> </td>
                                         
                                         <td> 
                                             
-                                            <button class="btn btn-info"><a href="view-buyer-profile.php?buyereditid=<?php echo $edit_buyer_id; ?>">Edit</a></button>
-                                            <button class="btn btn-danger"><a href="buyer-delete.php?deletebuyerid=<?php echo $delete_buyer_id; ?>"> Delete</a></button>
+                                            <div class="container">
+                                                <button class="btn" style="background-color:#6E806E;"><a class="text-white" style="text-decoration:none;" href="view-buyer-profile.php?buyereditid=<?php echo $edit_buyer_id; ?>">Edit</a></button>
+                                            </div>
+                                            <div class="container mt-2">
+                                                <button class="btn btn-danger"><a class="text-white" style="text-decoration:none;" href="buyer-delete.php?deletebuyerid=<?php echo $delete_buyer_id; ?>"> Delete</a></button>
+                                            </div>
+                                            
                                             
                                         </td>
                                         

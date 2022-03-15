@@ -12,9 +12,9 @@ include("header.php");
     <div class="row">
 
         <div class="col-md-12 mt-5">
-            <div class="card mt-12">
-                <div class="card-header">
-                    <h4>Edit Category</h4>
+            <div class="card mt-12" style="background-color:#6E806E;">
+                <div class="card-header text-center">
+                    <h3 class="text-white">Edit Category</h3>
                 </div>
             </div>
         </div>
@@ -55,14 +55,14 @@ include("header.php");
 
                         ?>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Category Name</label>
-                            <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['category_name'];?>" id="first_name"  required>
+                            <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['category_name'];?>" id="first_name"  readonly>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="first_name" class="form-label">Category Description</label>
-                            <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['cate_description'];?>" id="first_name"  required>
+                            <input type="first_name" class="form-control" name="first_name" value="<?php echo $row['cate_description'];?>" id="first_name"  readonly>
                         </div>
 
 
@@ -74,13 +74,13 @@ include("header.php");
 
                         ?>
 
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-12 mt-2">
                             <label for="image">Select image:</label>
                             <input type="file" id="image" class="form-control" name="image" accept="image/*" value="">
                             
                         </div>
 
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-12 mt-2">
                             <select name="status" id="status" class="form-control">
                                 <option value=''>Select Status</option>
                                 <?php
@@ -100,8 +100,8 @@ include("header.php");
                             </select>
                         </div>
 
-                        <div class="col-12">
-                            <button name="updatecategoryprofile" type="submit" class="btn btn-primary">Update Category Information</button>
+                        <div class="col-12 mt-2">
+                            <button name="updatecategoryprofile" style="background-color:#6E806E;" type="submit" class="btn text-white">Update Category Information</button>
                         </div>
 
 

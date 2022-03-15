@@ -29,17 +29,7 @@ include("header.php");
 
     
 
-    <div class ="col-md-4 mt-3">
-      <div class="card">
-        <div class="card-body row">
-          <div class="col-md-12 mt-3">
-            <h5><a class="text-dark" href="add-category.php" style="text-decoration:none;">Add Category</a></h4>
-          </div>
-        </div>
-      </div>
-
-      
-    </div>
+    
 
     <div class ="col-md-4 mt-3">
       <div class="card">

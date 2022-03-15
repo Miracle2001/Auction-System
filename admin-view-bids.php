@@ -7,9 +7,9 @@ include("header.php");
 <div class="container">
     <div class="row">
         <div class="col-md-12 mt-5">
-                <div class="card mt-12">
-                    <div class="card-header">
-                        <h4>View Buyer's Bids</h4>
+                <div class="card mt-12" style="background-color:#6E806E;">
+                    <div class="card-header text-center">
+                        <h3 class="text-white">View Buyer's Bids</h3>
                     </div>
                 </div>
             </div>
@@ -30,16 +30,16 @@ include("header.php");
         <div class ="col-md-12 mt-3">
             <div class="card">
                 <div class="card-body row">
-                    <table class="table">
+                    <table class="table mt-5">
                         <thead>
                             <tr>
                                 
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Email Address</th>
-                                <th scope="col">Bid Amount</th>
-                                <th scope="col">Bidding Date</th>
+                                <th scope="col"  style="text-align:center">First Name</th>
+                                <th scope="col"  style="text-align:center">Last Name</th>
+                                <th scope="col"  style="text-align:center">Product Name</th>
+                                <th scope="col"  style="text-align:center">Email Address</th>
+                                <th scope="col"  style="text-align:center">Bid Amount</th>
+                                <th scope="col"  style="text-align:center">Bidding Date</th>
                                                                 
                             </tr>
                         </thead>
@@ -62,12 +62,12 @@ include("header.php");
             
                                     ?>
                                     <tr>
-                                        <td> <?php  echo $row['first_name']?> </td>
-                                        <td> <?php  echo $row['last_name']?> </td>
-                                        <td> <?php  echo $row['stock_name']?> </td>
-                                        <td> <?php  echo $row['email_address']?> </td>
-                                        <td> <?php  echo $row['bid_amount']?> </td>
-                                        <td> <?php  echo $row['bidding_date_time']?> </td>
+                                        <td><h6 class="text-center">  <?php  echo $row['first_name']?></h6> </td>
+                                        <td><h6 class="text-center"> <?php  echo $row['last_name']?></h6> </td>
+                                        <td><h6 class="text-center"><?php  echo $row['stock_name']?></h6> </td>
+                                        <td><h6 class="text-center"> <?php  echo $row['email_address']?></h6> </td>
+                                        <td><h6 class="text-center"> <?php  echo $row['bid_amount']?></h6> </td>
+                                        <td><h6 class="text-center"> <?php  echo $row['bidding_date_time']?></h6> </td>
                                         
                                         
                                     

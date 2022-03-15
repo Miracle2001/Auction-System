@@ -8,9 +8,9 @@ include("header.php");
 <div class="container">
     <div class="row">
         <div class="col-md-12 mt-5">
-            <div class="card mt-12">
-                <div class="card-header">
-                    <h4>Category Information</h4>
+            <div class="card mt-12" style="background-color:#6E806E;">
+                <div class="card-header text-center">
+                    <h3 class="text-white">Category Information</h3>
                 </div>
             </div>
         </div>
@@ -49,24 +49,24 @@ include("header.php");
 
                     ?>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <label for="cate_name" class="form-label">Category Name</label>
-                        <input type="text" class="form-control" name="cate_name" value="<?php echo $row['category_name'];?>" id="first_name"  required>
+                        <input type="text" class="form-control" name="cate_name" value="<?php echo $row['category_name'];?>" id="first_name"  readonly>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <label for="cate_desc" class="form-label">Category Description</label>
-                        <input type="text" class="form-control" name="cate_desc" value="<?php echo $row['cate_description'];?>" id="first_name"  required>
+                        <input type="text" class="form-control" name="cate_desc" value="<?php echo $row['cate_description'];?>" id="first_name"  readonly>
                     </div>
 
-                    <div class="col-md-12 mt-3">
+                    <div class="col-md-12 mt-2">
                         <label for="cate_image" class="form-label">Category Image</label>
                         <?php  echo '<img src="data:image;base64,'.base64_encode($row['cat_image']).'" alt="Image" style="width:100%; height: 280px;">'?>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <label for="cate_desc" class="form-label">Category Status</label>
-                        <input type="text" class="form-control" name="cate_desc" value="<?php echo $row['status'];?>" id="first_name"  required>
+                        <input type="text" class="form-control" name="cate_desc" value="<?php echo $row['status'];?>" id="first_name"  readonly>
                     </div>
 
 
@@ -79,7 +79,7 @@ include("header.php");
 
                     ?>
                     <div class="col-12">
-                            <button name="deletecategory" type="submit" class="btn btn-primary">Delete Category Information</button>
+                            <button name="deletecategory" style="background-color:#6E806E;" type="submit" class="btn text-white">Delete Category Information</button>
                     </div>
 
                     </form>

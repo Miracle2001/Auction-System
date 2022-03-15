@@ -104,9 +104,14 @@ var x = setInterval(function() {
 
                     <?php if(($date> $row['auction_date_end'])): ?>
 
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-4 mt-3">
                             <button class="btn btn-danger">Auction Closed</a></button>
                         </div>
+
+                        <div class="col-md-6 mt-3">
+                            <button class="btn btn-info">View Auction Winner</a></button>
+                        </div>
+                            
 
 
                     <?php else : ?>
@@ -114,7 +119,16 @@ var x = setInterval(function() {
                         <div class="col-md-12 mt-3">
                        
                             <button class="btn btn-info"><a href="bid.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
-                            <button class="btn btn-info"><a href="view-seller-profile.php?sellereditid=<?php echo $edit_seller_id;?>">Watch this item</a></button>
+                            
+                            <button id="dem" type="submit" class="btn btn-info" ><a href="watchlist.php?stockid=<?php echo $stock_id;?>">Watch this product</a></button>
+
+
+
+                            
+
+                            
+
+                            
                         </div>
 
                         <div class="col-md-12 mt-3">

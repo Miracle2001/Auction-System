@@ -209,15 +209,28 @@ if(isset($_POST['submit'])){
                 $bidder_winner = "SELECT * FROM winner LEFT JOIN buyer ON winner.buyer_id = buyer.buyer_id  WHERE stock_id='$stock_id'";
                 $bidder_winner_query_run = mysqli_query($con, $bidder_winner);
 
-                while($row = mysqli_fetch_array($bidder_winner_query_run)){
+                if($bidder_winner_query_run){
 
-                    $first_name = $row['first_name'];
-                    $email = $row['email_address'];
+                    while($row = mysqli_fetch_array($bidder_winner_query_run)){
 
+                        $buyer_id = $row['buyer_id'];
+    
+                        $first_name = $row['first_name'];
+                        $email = $row['email_address'];
+
+                        echo $buyer_id;
+    
+                    }
+
+                   
                 }
 
-                bid_won("$first_name", "$email");
+            
 
+
+                
+
+                
 
                 
 

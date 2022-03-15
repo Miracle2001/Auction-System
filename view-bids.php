@@ -1,34 +1,7 @@
 <?php 
-
 session_start();
 include('dbcon.php');
-
-
-
-if(isset($_GET['stockid'])){
-
-   
-    $stock_id = $_GET['stockid'];
-    $buyer_id = $_SESSION['buyer_id'];
-    
-    
-  
-    
-    $watchquery = "INSERT INTO watchlist (stock_id, buyer_id) VALUES ('{$stock_id}', '{$buyer_id}')";
-    $watchquery_run = mysqli_query($con, $watchquery);
-
-    
-        
-           
-      
-                  
-    
-      
-        
-    
-
-}
-
+include("header.php");
 ?>
 
 <div class="container">
@@ -36,7 +9,7 @@ if(isset($_GET['stockid'])){
         <div class="col-md-12">
                 <div class="card mt-3">
                     <div class="card-header">
-                        <h4>Watch List</h4>
+                        <h4>Buyer's Bids</h4>
                     </div>
                 </div>
             </div>
@@ -45,15 +18,16 @@ if(isset($_GET['stockid'])){
         <?php 
           
           
-          
-          $watch_list_query ="SELECT * FROM watchlist LEFT JOIN stock ON watchlist.stock_id = stock.stock_id WHERE buyer_id='$buyer_id'";
-          $watch_list_query_run = mysqli_query($con,$watch_list_query);
-          $watch_list_query_run_check = mysqli_num_rows($watch_list_query_run);
+          $buyer_id = $_SESSION['buyer_id'];
+          $bid_query ="SELECT * FROM bid LEFT JOIN stock ON bid.stock_id = stock.stock_id WHERE buyer_id='$buyer_id'";
+          $bid_query_run = mysqli_query($con,$bid_query);
+          $bid_query_run_check = mysqli_num_rows($bid_query_run);
 
-          if ($watch_list_query_run_check > 0){
+          if ($bid_query_run_check > 0){
               while ($row = mysqli_fetch_assoc($bid_query_run)) {
 
-                    
+                    $bid_amount = $row['bid_amount'];
+                    $bidding_date_time = $row['bidding_date_time'];
                     $stock_name = $row['stock_name'];
                     $stock_image = $row['stock_image'];
                     $current_bid = $row['current_bid'];
@@ -92,14 +66,23 @@ if(isset($_GET['stockid'])){
                         <h5>Current Bid: £<?php echo $row['current_bid']; ?> </h4>
                     </div>
 
-                   
+                    <div class="col-md-12 mt-3">
+                        <h5>Amount Bidded: £<?php echo $row['bid_amount']; ?> </h4>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <h5>Date-Time<?php echo $row['bidding_date_time']; ?> </h4>
+                    </div>
+
+
+
                     
                     
 
                     <div class="col-md-12 mt-3">
                     
                         <button class="btn btn-info"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-info"><a href="view-seller-profile.php?sellereditid=<?php echo $edit_seller_id;?>">Watch this item</a></button>
                     </div>
 
                         

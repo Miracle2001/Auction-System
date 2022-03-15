@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 
 function send_password_reset($get_email,$token){
@@ -57,14 +57,19 @@ if(isset($_POST['submit'])){
 
    
     
-    $check_email_query = "SELECT email_address FROM seller WHERE email_address='$email_address' LIMIT 1";
-    $check_email_query_run = mysqli_query($con, $check_email_query);
+    $check_seller_email_query = "SELECT email_address FROM seller WHERE email_address='$email_address' LIMIT 1";
+    $check_seller_email_query_run = mysqli_query($con, $check_seller_email_query);
 
   
 
-    if(mysqli_num_rows($check_email_query_run) > 0){
+    if(!(mysqli_num_rows($check_seller_email_query_run) > 0)){
 
-        $row = mysqli_fetch_array($check_email_query_run);
+        $_SESSION['status'] = "$email_address - Email is not registered. Please Register Now.!";
+        header("Location: sellerregistration.php");
+        exit(0);
+    } else {
+
+        $row = mysqli_fetch_array($check_seller_email_query_run);
        // $get_name = $row['sellerid'];
         $get_email = $row['email_address'];
                 
@@ -95,11 +100,7 @@ if(isset($_POST['submit'])){
               
         
         
-    }  else {
-        $_SESSION['status'] = "$email_address - Email is not registered. Please Register Now.!";
-        header("Location: sellerregistration.php");
-        exit(0);
-    }
+    }  
     
         
            

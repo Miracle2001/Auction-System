@@ -8,13 +8,13 @@ include("header.php");
 
 
 
-<div class="container">
+<div class="container mt-2">
   <div class="row">
 
     <div class="col-md-12 mt-5">
-      <div class="card mt-12">
-        <div class="card-header">
-          <h4>Seller's Dashboard</h4>
+      <div class="card mt-12" style="background-color:#6E806E;">
+        <div class="card-header text-center">
+          <h3 class="text-white">Seller's Dashboard</h3>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@ include("header.php");
       <div class="card">
         <div class="card-body row">
           <div class="col-md-12 mt-3">
-            <h5><a href="category.php">Post Listing</a></h4>
+            <h5><a class="text-dark" href="category.php" style="text-decoration:none;">Post Listing</a></h4>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@ include("header.php");
       <div class="card">
         <div class="card-body row">
           <div class="col-md-12 mt-3">
-            <h5><a href="seller-product-list.php">Product List </a></h4>
+            <h5><a class="text-dark" href="seller-product-list.php" style="text-decoration:none;">Product List </a></h4>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ include("header.php");
       <div class="card">
         <div class="card-body row">
           <div class="col-md-12 mt-3">
-            <h5><a href="seller-edit-profile.php"> Edit Profile Information</a></h4>
+            <h5><a class="text-dark" href="seller-edit-profile.php" style="text-decoration:none;"> Edit Profile Information</a></h4>
           </div>
         </div>
       </div>

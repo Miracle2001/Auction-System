@@ -107,7 +107,7 @@ include('dbcon.php');
             
 
             <div class="col-12">
-                <button name="updateprofile" type="submit" class="btn btn-primary">UPDATE PROFILE</button>
+                <button name="updateprofile" type="submit" class="btn btn-primary">Update Buyer Profile</button>
             </div>
 
            

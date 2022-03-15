@@ -37,7 +37,7 @@ include("header.php");
       <div class="card">
         <div class="card-body row">
           <div class="col-md-12 mt-3">
-            <h5><a href="seller-product-list.php">Watch List</a></h4>
+            <h5><a href="watchlist.php">Watch List</a></h4>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ include("header.php");
       <div class="card">
         <div class="card-body row">
           <div class="col-md-12 mt-3">
-            <h5>Biddings</h4>
+            <h5><a href="view-bids.php">Biddings </a></h4>
           </div>
         </div>
       </div>

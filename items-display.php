@@ -125,13 +125,15 @@ if(isset($_POST['submit'])){
 
 
                                                     <?php endif; ?>
+
+                                                    <button class="btn btn-primary"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid </a></button>
+                                    
+                                    
+                                                    <button name="watch_list" type="submit" class="btn btn-primary"><a href="watchlist.php?stockid=<?php echo $stock_id;?>">Watch this product</button>
                                                     
                                                     
 
-                                                    <button class="btn btn-info"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
-                                    
-                                    
-                                                    <button name="watch_list" type="submit" class="btn btn-primary">Watch this product</button>
+                                                    
                                                 </div>
                                             </div>
     

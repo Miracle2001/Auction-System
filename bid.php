@@ -60,7 +60,7 @@ var x = setInterval(function() {
 </script>
 
             <div class="col-md-12 mt-5">
-                <div class="card mt-3">
+                <div class="card mt-12" style="background-color:#6E806E;">
                 <?php 
                 if(isset($_SESSION['status'])) {
                     ?>
@@ -74,12 +74,12 @@ var x = setInterval(function() {
                 ?>
 
 
-                    <div class="card-header">
-                        <h4><?php echo $row['stock_name']; ?></h4>
+                    <div class="card-header text-center">
+                        <h3 class="text-white"><?php echo $row['stock_name']; ?></h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 mt-3">
+            <div class="col-md-12 mt-3">
 
                 <div class="card">
                     <div class="card-body row">
@@ -110,7 +110,7 @@ var x = setInterval(function() {
                                                
 
                             <div class="col-md-12 mt-3">
-                                <button name="submit" type="submit" class="btn btn-primary">Submit bid</button>
+                                <button name="submit" type="submit" style="background-color:#6E806E;" class="btn text-white">Submit bid</button>
                             </div>
 
 

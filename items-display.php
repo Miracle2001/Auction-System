@@ -21,10 +21,10 @@ if(isset($_POST['submit'])){
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h4>Auction Catalogue</h4>
+        <div class="col-md-12 mt-5">
+            <div class="card mt-12" style="background-color:#6E806E;">
+                <div class="card-header text-center">
+                    <h3 class="text-white">Auction Catalogue</h3>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
                 <div class="card shadow mt-3">
                     <div class="card-header">
                         <h5>Filter 
-                            <button type="submit" class="btn btn-primary btn-sm float-end">Search</button>
+                            <button type="submit" style="background-color:#6E806E;" class="btn text-white btn-sm float-end">Search</button>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -126,10 +126,9 @@ if(isset($_POST['submit'])){
 
                                                     <?php endif; ?>
 
-                                                    <button class="btn btn-primary"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid </a></button>
-                                    
-                                    
-                                                    <button name="watch_list" type="submit" class="btn btn-primary"><a href="watchlist.php?stockid=<?php echo $stock_id;?>">Watch this product</button>
+                                                    <button name="submit" type="submit" class="btn" style="background-color:#6E806E;"><a class="text-white" style="text-decoration:none;" href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
+                                                    <button name="watch_list" type="submit" class="btn" style="background-color:#6E806E;"><a class="text-white" style="text-decoration:none;" href="watchlist.php?stockid=<?php echo $stock_id;?>">Watch this product</a></button>
+                                
                                                     
                                                     
 
@@ -182,10 +181,11 @@ if(isset($_POST['submit'])){
 
                                                 
 
-                                                <button name="submit" type="submit" class="btn btn-info"><a href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
+                                                <button name="submit" type="submit" class="btn" style="background-color:#6E806E;"><a class="text-white" style="text-decoration:none;" href="single-product.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
+                                                <button name="watch_list" type="submit" class="btn" style="background-color:#6E806E;"><a class="text-white" style="text-decoration:none;" href="watchlist.php?stockid=<?php echo $stock_id;?>">Watch this product</a></button>
                                 
                                  
-                                                <button name="watch_list" type="submit" class="btn btn-primary">Watch this product</button>
+                                               
                                                 
                                             </div>
                                         </div>

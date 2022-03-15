@@ -1,8 +1,8 @@
 <?php 
-
-include('dbcon.php');
+include('buyer-authentication.php');
 include("header.php");
-include('authenticated.php');
+include('dbcon.php');
+
 ?>
 
 <div class="container">
@@ -65,9 +65,9 @@ var x = setInterval(function() {
 </script>
 
         <div class="col-md-12 mt-5">
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h4><?php echo $row['stock_name']; ?></h4>
+            <div class="card mt-12" style="background-color:#6E806E;">
+                <div class="card-header text-center">
+                    <h3 class="text-white"><?php echo $row['stock_name']; ?></h3>
                 </div>
             </div>
         </div>
@@ -118,9 +118,9 @@ var x = setInterval(function() {
 
                         <div class="col-md-12 mt-3">
                        
-                            <button class="btn btn-info"><a href="bid.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
+                            <button class="btn" style="background-color:#6E806E;"><a class="text-white" style="text-decoration:none;" href="bid.php?stockid=<?php echo $stock_id;?>">Place Bid</a></button>
                             
-                            <button id="dem" type="submit" class="btn btn-info" ><a href="watchlist.php?stockid=<?php echo $stock_id;?>">Watch this product</a></button>
+                            <button id="dem" type="submit" class="btn" style="background-color:#6E806E;" ><a class="text-white" style="text-decoration:none;" href="watchlist.php?stockid=<?php echo $stock_id;?>">Watch this product</a></button>
 
 
 

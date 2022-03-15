@@ -3,7 +3,7 @@
 
 
 <br><br>    
-<footer class="endpage text-white" style="background-color: #6E806E; " >
+<footer class="mt-auto" text-white" style="background-color: #6E806E; " >
     <div class="py-6 bg-gray">
         <div class="container">
             <div class="row">
@@ -32,7 +32,7 @@
                 </div>
 
                 
-
+                <?php if(!isset($_SESSION['authenticated'])) : ?>
                 <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
                     <h6 class="text-uppercase text-heading mb-3 text-white">Employee Account</h6>
                     <ul class="list-unstyled">
@@ -40,7 +40,21 @@
                         
                     </ul>
                 </div>
-                
+                <?php endif ?>
+
+                <?php if((isset($_SESSION["admin_id"]))) :?>
+                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                    <h6 class="text-uppercase text-heading mb-3 text-white">Employee Account</h6>
+                    <ul class="list-unstyled">
+                        <li><a class="text-para text-white" href="admin-dashboard.php">Admin's Dashboard</a></li>
+                        
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li><a class="text-para text-white" href="admin-logout.php">Admin's Logout</a></li>
+                        
+                    </ul>
+                </div>
+                <?php endif ?>
                 
 
 

@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
                 $admin_id = $admin_pass['admin_id'];
                 $_SESSION["admin_id"] = $admin_id;
             
-                $_SESSION['status'] = "You are logged in successfully.";
+                
 
                 
                

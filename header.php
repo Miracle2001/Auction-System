@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <!--First navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #283428;" id="navvv"> 
@@ -35,9 +35,7 @@
                     <li class="nav-item">
                        <a class="nav-link text-white px-3" href="contactus.php">Contact Us</a>
                     </li>
-                    <li class="nav-item">
-                       <a class="nav-link text-white px-3" href="faq.php">FAQ</a>
-                    </li>
+                    
 
                    
                     
@@ -75,12 +73,20 @@
                     <?php if( (isset($_SESSION['id']))) :?>
 
                     <li class="nav-item">
+                        <a class="nav-link text-white" href="seller-dashboard.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-white" href="seller-logout.php">Logout</a>
                     </li>
+                    
 
                     <?php endif ?>
 
                     <?php if( (isset($_SESSION['buyer_id']))) :?>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="buyer's-dashboard.php">Dashboard</a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-white" href="buyer-logout.php">Logout</a>
@@ -89,6 +95,10 @@
                     <?php endif ?>
 
                     <?php if( (isset($_SESSION['admin_id']))) :?>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="admin-dashboard.php">Dashboard</a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-white" href="admin-logout.php">Logout</a>

@@ -37,7 +37,7 @@ if(isset($_POST['submit'])){
                     
 
                     
-                    $_SESSION['status'] = "You are logged in successfully.";
+                   
                   
 
                     header("Location: seller-dashboard.php");

@@ -9,7 +9,7 @@
 body {
     font-family: Poppins;
     
-    min-height: 100%;
+   
 }
 
 /* The Navbar */
@@ -93,12 +93,7 @@ body {
 
 /* The footer */
 
-.footer{
-    clear: both;
-    position: relative;
-    height: 200px;
-    margin-top: -200px;
-}
+
 .py-6{
     padding-top: 6rem;
     padding-bottom: 6rem;

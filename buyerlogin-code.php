@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
                     $buyer_id = $email_pass['buyer_id'];
                     $_SESSION['buyer_id'] = $buyer_id;
                     
-                    $_SESSION['status'] = "You are logged in successfully.";
+                   
                     header("Location: buyer's-dashboard.php");
                     exit(0);
 
